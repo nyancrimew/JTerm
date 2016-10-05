@@ -67,7 +67,8 @@ public class CommandUtils {
   }
 
   static void printInputPromt() {
-    Printer.out.print(JTerm.getUsr() + " " + JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~") + " > ");
+    Printer.out.forced()
+        .print(JTerm.getUsr() + " " + JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~") + " > ");
   }
 
   private static void invokeInit(String clazz) {

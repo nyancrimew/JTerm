@@ -23,6 +23,7 @@ public class Env implements CommandContext {
     CommandUtils.addListener("run", Env::run);
     CommandUtils.addListener("os", this::os);
     CommandUtils.addListener("alias", this::alias);
+    CommandUtils.addListener("mute", o -> mute());
   }
 
   private String getEnv(String cmd) {
@@ -127,6 +128,10 @@ public class Env implements CommandContext {
     Printer.out.println(successTxt);
     CommandUtils.addListener(alias, (o) -> CommandUtils.evaluateCommand((original + " " + o).trim()));
     return successTxt;
+  }
+
+  private boolean mute() {
+    return Printer.out.toggleMute();
   }
 
 }

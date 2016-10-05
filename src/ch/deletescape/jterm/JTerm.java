@@ -24,7 +24,7 @@ public class JTerm {
       home = System.getProperty("user.dir");
     }
     CommandUtils.initializeEnv();
-    Printer.out.println("JTerm, a simple terminal written in Java by Till Kottmann");
+    Printer.out.println("JTerm, a simple terminal written in Java by Deletescape Media");
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }

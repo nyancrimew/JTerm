@@ -41,7 +41,7 @@ public class IfConfig {
       Printer.out.println("\nUsage:");
       Printer.out.println("\tifconfig -h / --help:\tShow this usage info");
       Printer.out.println("\tifconfig -a:\t\tInclude not connected interfaces in the result");
-      Printer.out.println("\nThis is a Java ifconfig / ipconfig clone by Till Kottmann\n");
+      Printer.out.println("\nThis is a Java ifconfig / ipconfig clone by Deletescape Media\n");
     }
   }
 

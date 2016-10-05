@@ -49,7 +49,7 @@ public class Scripting implements CommandContext {
   }
 
   private String readLine(String arg) {
-    Printer.out.print(arg);
+    Printer.out.forced().print(arg);
     String line = JTerm.getScanner().nextLine();
     return line;
   }

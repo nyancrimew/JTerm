@@ -7,6 +7,7 @@ import java.io.PrintStream;
 public class MutablePrinter {
   private final PrintStream stream;
   private boolean muted = false;
+  private boolean forced = false;
   private static final PrintStream EMPTY_STREAM = new PrintStream(new OutputStream() {
 
     @Override
@@ -19,25 +20,38 @@ public class MutablePrinter {
   }
 
   public void println(Object x) {
-    if (!muted) {
+    if (forced || !muted) {
       stream.println(x);
+      forced = false;
     }
   }
 
   public void println() {
-    if (!muted) {
+    if (forced || !muted) {
       stream.println();
+      forced = false;
     }
   }
 
   public void print(Object x) {
-    if (!muted) {
+    if (forced || !muted) {
       stream.print(x);
+      forced = false;
     }
   }
 
-  public void mute(boolean mute) {
+  public PrintStream getPrintStream() {
+    if (forced || !muted) {
+      forced = false;
+      return stream;
+    }
+    return EMPTY_STREAM;
+  }
+
+  public boolean mute(boolean mute) {
+    boolean currState = muted;
     muted = mute;
+    return currState;
   }
 
   public boolean toggleMute() {
@@ -49,10 +63,8 @@ public class MutablePrinter {
     return muted;
   }
 
-  public PrintStream getPrintStream() {
-    if (!muted) {
-      return stream;
-    }
-    return EMPTY_STREAM;
+  public MutablePrinter forced() {
+    forced = true;
+    return this;
   }
 }

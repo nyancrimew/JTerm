@@ -81,17 +81,13 @@ public class CommandUtils {
   private static String getArgs(String cmd) {
     int indx = cmd.indexOf(' ');
     String tmp = indx != -1 ? cmd.substring(indx + 1) : "";
+    boolean wasMuted = Printer.out.mute(true);
     for (Matcher m = INLINE_COMMAND_PATTERN.matcher(tmp); m.find(); m = INLINE_COMMAND_PATTERN.matcher(tmp)) {
-
       String group = m.group();
-      boolean isReadLine = group.contains("readLine");
-      if (!isReadLine) {
-        Printer.out.mute(true);
-      }
       Object cmdResult = CommandUtils.evaluateCommand(group.replaceAll("^\\$\\{|\\}$", ""));
       tmp = tmp.substring(0, m.start()) + cmdResult + tmp.substring(m.end());
-      Printer.out.mute(false);
     }
+    Printer.out.mute(wasMuted);
     return tmp;
   }
 }

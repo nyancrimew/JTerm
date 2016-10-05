@@ -19,15 +19,11 @@ public class DateTime implements CommandContext {
 
   private String time() {
     Date time = Calendar.getInstance().getTime();
-    String timeString = TIME_FORMAT.format(time);
-    Printer.out.println(timeString);
-    return timeString;
+    return Printer.out.println(TIME_FORMAT.format(time));
   }
 
   private String date() {
     Date date = Calendar.getInstance().getTime();
-    String dateString = DATE_FORMAT.format(date);
-    Printer.out.println(dateString);
-    return dateString;
+    return Printer.out.println(DATE_FORMAT.format(date));
   }
 }

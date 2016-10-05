@@ -28,8 +28,7 @@ public class Env implements CommandContext {
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }
-    Printer.out.println(output.toString());
-    return output.toString();
+    return Printer.out.println(output);
   }
 
   private String exec(String cmd) throws IOException {
@@ -80,8 +79,7 @@ public class Env implements CommandContext {
         sb.append("\n\t-v / --version. . : Prints os version\n\t-h / --help . . . : Prints this usage information\n");
         break;
     }
-    Printer.out.println(sb.toString());
-    return sb.toString();
+    return Printer.out.println(sb);
   }
 
   private String alias(String cmd) {
@@ -95,9 +93,8 @@ public class Env implements CommandContext {
       return errTxt;
     }
     String successTxt = "Setting alias \"" + alias + "\" for command \"" + original + "\"";
-    Printer.out.println(successTxt);
     CommandUtils.addListener(alias, o -> CommandUtils.evaluateCommand((original + " " + o).trim()));
-    return successTxt;
+    return Printer.out.println(successTxt);
   }
 
   private boolean mute() {

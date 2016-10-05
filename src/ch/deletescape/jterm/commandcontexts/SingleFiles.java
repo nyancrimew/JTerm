@@ -23,15 +23,14 @@ public class SingleFiles implements CommandContext {
 
   private boolean rm(String cmd) throws IOException {
     cmd = CommandUtils.parseInlineCommands(cmd);
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
     try {
-      Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
       Files.delete(path);
+      return true;
     } catch (NoSuchFileException e) {
-      Printer.out
-          .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
-      return false;
+      Printer.out.println("Error: Path \"" + path + "\" couldn't be found!");
     }
-    return true;
+    return false;
   }
 
   private String cat(String cmd) throws IOException {

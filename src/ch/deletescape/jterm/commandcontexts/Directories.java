@@ -25,8 +25,7 @@ public class Directories implements CommandContext {
   }
 
   private String pwd() {
-    Printer.out.println(JTerm.getCurrPath());
-    return JTerm.getCurrPath().toString();
+    return Printer.out.println(JTerm.getCurrPath());
   }
 
   private boolean cd(String cmd) throws IOException {
@@ -57,8 +56,7 @@ public class Directories implements CommandContext {
     } catch (NotDirectoryException e) {
       Printer.err.println(JTerm.getCurrPath().resolve(path) + "\n");
     }
-    Printer.out.println(out.toString());
-    return out.toString();
+    return Printer.out.println(out);
   }
 
   private boolean mkdir(String cmd) throws IOException {

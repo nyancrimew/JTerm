@@ -33,14 +33,12 @@ public class Misc implements CommandContext {
     } else {
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
     }
-    Printer.out.println(output.toString());
-    return output.toString();
+    return Printer.out.println(output);
   }
 
   private String echo(String text) {
     text = CommandUtils.parseInlineCommands(text);
     String output = text.trim().replaceAll("^\"|\"$", "");
-    Printer.out.println(output);
-    return output;
+    return Printer.out.println(output);
   }
 }

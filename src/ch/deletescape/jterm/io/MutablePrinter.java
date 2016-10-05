@@ -19,25 +19,24 @@ public class MutablePrinter {
     this.stream = stream;
   }
 
-  public void println(Object x) {
+  public String println(Object x) {
     if (forced || !muted) {
       stream.println(x);
       forced = false;
     }
+    return x.toString();
   }
 
-  public void println() {
-    if (forced || !muted) {
-      stream.println();
-      forced = false;
-    }
+  public String println() {
+    return println("");
   }
 
-  public void print(Object x) {
+  public String print(Object x) {
     if (forced || !muted) {
       stream.print(x);
       forced = false;
     }
+    return x.toString();
   }
 
   public PrintStream getPrintStream() {

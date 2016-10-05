@@ -11,3 +11,4 @@ The sources are rather messy right now and need some clean up! If you see someth
 - [ ] CleanUp
 - [ ] Documentation / CLI help
 - [ ] Fully functional scripting capabilities
+- [ ] Testing

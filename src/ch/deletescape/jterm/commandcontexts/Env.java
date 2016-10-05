@@ -1,11 +1,6 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
@@ -20,7 +15,6 @@ public class Env implements CommandContext {
     CommandUtils.addListener("exec", this::exec);
     CommandUtils.addListener("exit", o -> exit());
     CommandUtils.addListener("bye", o -> exit());
-    CommandUtils.addListener("run", Env::run);
     CommandUtils.addListener("os", this::os);
     CommandUtils.addListener("alias", this::alias);
     CommandUtils.addListener("mute", o -> mute());
@@ -29,9 +23,8 @@ public class Env implements CommandContext {
   private String getEnv(String cmd) {
     cmd = CommandUtils.parseInlineCommands(cmd);
     StringBuilder output = new StringBuilder();
-    String env = cmd;
-    if (!"".equals(env)) {
-      output.append(System.getenv(env) + "\n");
+    if (!"".equals(cmd)) {
+      output.append(System.getenv(cmd) + "\n");
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }
@@ -42,46 +35,12 @@ public class Env implements CommandContext {
   private String exec(String cmd) throws IOException {
     cmd = CommandUtils.parseInlineCommands(cmd);
     Process proc = Runtime.getRuntime().exec(cmd);
-    InputStream in = proc.getInputStream();
-    return Util.copyStream(in, Printer.out.getPrintStream());
+    return Util.copyStream(proc.getInputStream(), Printer.out.getPrintStream());
   }
 
   private Object exit() {
-    Printer.out.println("Exiting");
     JTerm.exit();
     return null;
-  }
-
-  public static boolean run(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    try {
-      Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
-      if (Files.isDirectory(path)) {
-        Printer.err.println(path + " is a directory!");
-      } else {
-        Path bak = JTerm.getCurrPath();
-        JTerm.setCurrPath(path.getParent());
-        try (BufferedReader in = Files.newBufferedReader(path)) {
-          String s = in.readLine();
-          while (s != null) {
-            while (s.endsWith("\\;")) {
-              s = s.substring(0, s.length() - 2) + " " + in.readLine().trim();
-            }
-            s = s.trim();
-            if (!"".equals(s)) {
-              CommandUtils.evaluateCommand(s);
-            }
-            s = in.readLine();
-          }
-        }
-        JTerm.setCurrPath(bak);
-        return true;
-      }
-    } catch (NoSuchFileException e) {
-      Printer.out
-          .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
-    }
-    return false;
   }
 
   private String os(String arg) {
@@ -94,11 +53,9 @@ public class Env implements CommandContext {
       case "":
         sb.append("Name . . . . . : ");
         sb.append(name);
-        sb.append('\n');
-        sb.append("Architecture . : ");
+        sb.append("\nArchitecture . : ");
         sb.append(arch);
-        sb.append('\n');
-        sb.append("Version. . . . : ");
+        sb.append("\nVersion. . . . : ");
         sb.append(version);
         sb.append('\n');
         break;
@@ -115,15 +72,13 @@ public class Env implements CommandContext {
         sb.append(arch);
         break;
       default:
-        String errTXT = "Unknown option: " + arg;
-        Printer.err.println(errTXT);
+        Printer.err.println("Unknown option: " + arg);
       case "-h":
       case "--help":
         sb.append("Usage: os [-[nvah]]");
-        sb.append("\n\t-n / --name . . . : Prints os name");
-        sb.append("\n\t-a / --arch . . . : Prints os architecture");
-        sb.append("\n\t-v / --version. . : Prints os version");
-        sb.append("\n\t-h / --help . . . : Prints this usage information\n");
+        sb.append("\n\t-n / --name . . . : Prints os name\n\t-a / --arch . . . : Prints os architecture");
+        sb.append("\n\t-v / --version. . : Prints os version\n\t-h / --help . . . : Prints this usage information\n");
+        break;
     }
     Printer.out.println(sb.toString());
     return sb.toString();
@@ -141,7 +96,7 @@ public class Env implements CommandContext {
     }
     String successTxt = "Setting alias \"" + alias + "\" for command \"" + original + "\"";
     Printer.out.println(successTxt);
-    CommandUtils.addListener(alias, (o) -> CommandUtils.evaluateCommand((original + " " + o).trim()));
+    CommandUtils.addListener(alias, o -> CommandUtils.evaluateCommand((original + " " + o).trim()));
     return successTxt;
   }
 

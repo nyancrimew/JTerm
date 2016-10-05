@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ch.deletescape.jterm.commandcontexts.CommandContext;
-import ch.deletescape.jterm.commandcontexts.Env;
+import ch.deletescape.jterm.commandcontexts.Scripting;
 import ch.deletescape.jterm.io.Printer;
 
 public class CommandUtils {
@@ -34,7 +34,7 @@ public class CommandUtils {
     Printer.out.mute(true);
     Path jtermrc = JTerm.getCurrPath().resolve(".jtermrc");
     if (Files.exists(jtermrc)) {
-      Env.run(jtermrc.toString());
+      Scripting.run(jtermrc.toString());
     }
     Printer.out.mute(false);
   }
@@ -51,7 +51,7 @@ public class CommandUtils {
       if (executor != null) {
         ret = executor.exec(getArgs(cmd));
       } else if (cmd.startsWith("./")) {
-        ret = Env.run(cmd);
+        ret = Scripting.run(cmd);
       } else {
         Printer.err.println("Unknown command: " + key);
         Printer.out.println("To get a list of available commands enter \"help\"");

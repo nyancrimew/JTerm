@@ -25,7 +25,7 @@ public class MutablePrinter {
       stream.println(x);
       forced = false;
     }
-    return x.toString();
+    return x != null ? x.toString() : null;
   }
 
   public String println(String format, Object... args) {
@@ -41,7 +41,7 @@ public class MutablePrinter {
       stream.print(x);
       forced = false;
     }
-    return x.toString();
+    return x != null ? x.toString() : null;
   }
 
   public String print(String format, Object... args) {

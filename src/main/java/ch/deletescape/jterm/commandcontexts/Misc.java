@@ -18,7 +18,7 @@ public class Misc extends CommandContext {
     CommandUtils.addListener("print", this::echo);
   }
 
-  private Object calc(String cmd) throws ScriptException {
+  Object calc(String cmd) throws ScriptException {
     String operation = CommandUtils.parseInlineCommands(cmd);
     Object result = JTerm.getJsEngine().eval(operation);
     Printer.out.println(result);

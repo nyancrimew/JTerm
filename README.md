@@ -6,6 +6,6 @@ The sources are rather messy right now and need some clean up! If you see someth
 
 ##TODO
 
-[] CleanUp
-[] Documentation / CLI help
-[] Fully functional scripting capabilities
+- [ ] CleanUp
+- [ ] Documentation / CLI help
+- [ ] Fully functional scripting capabilities

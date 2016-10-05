@@ -22,8 +22,8 @@ public class SingleFiles implements CommandContext {
   }
 
   private boolean rm(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
+    String command = CommandUtils.parseInlineCommands(cmd);
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     try {
       Files.delete(path);
       return true;
@@ -34,9 +34,9 @@ public class SingleFiles implements CommandContext {
   }
 
   private String cat(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
+    String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder sb = new StringBuilder();
-    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     if (Files.isDirectory(path)) {
       try (Stream<Path> stream = Files.list(path)) {
         stream.filter(p -> !Files.isDirectory(p)).forEach(p -> sb.append(printFile(p)));
@@ -58,9 +58,9 @@ public class SingleFiles implements CommandContext {
   }
 
   private String write(String args) throws IOException {
-    args = CommandUtils.parseInlineCommands(args);
-    String content = args.split(" > ")[0];
-    String destination = args.split(" > ")[1];
+    String arguments = CommandUtils.parseInlineCommands(args);
+    String content = arguments.split(" > ")[0];
+    String destination = arguments.split(" > ")[1];
     Path dest = JTerm.getCurrPath().resolve(Util.makePathString(destination));
     try (BufferedWriter bw = Files.newBufferedWriter(dest)) {
       bw.write(content);

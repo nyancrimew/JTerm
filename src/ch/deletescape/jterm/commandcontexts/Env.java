@@ -21,10 +21,10 @@ public class Env implements CommandContext {
   }
 
   private String getEnv(String cmd) {
-    cmd = CommandUtils.parseInlineCommands(cmd);
+    String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder output = new StringBuilder();
-    if (!"".equals(cmd)) {
-      output.append(System.getenv(cmd) + "\n");
+    if (!"".equals(command)) {
+      output.append(System.getenv(command) + "\n");
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }
@@ -32,8 +32,8 @@ public class Env implements CommandContext {
   }
 
   private String exec(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    Process proc = Runtime.getRuntime().exec(cmd);
+    String command = CommandUtils.parseInlineCommands(cmd);
+    Process proc = Runtime.getRuntime().exec(command);
     return Util.copyStream(proc.getInputStream(), Printer.out.getPrintStream());
   }
 
@@ -43,12 +43,12 @@ public class Env implements CommandContext {
   }
 
   private String os(String arg) {
-    arg = CommandUtils.parseInlineCommands(arg);
+    String argument = CommandUtils.parseInlineCommands(arg);
     String name = System.getProperty("os.name");
     String arch = System.getProperty("os.arch");
     String version = System.getProperty("os.version");
     StringBuilder sb = new StringBuilder();
-    switch (arg) {
+    switch (argument) {
       case "":
         sb.append("Name . . . . . : ");
         sb.append(name);
@@ -71,7 +71,7 @@ public class Env implements CommandContext {
         sb.append(arch);
         break;
       default:
-        Printer.err.println("Unknown option: " + arg);
+        Printer.err.println("Unknown option: " + argument);
       case "-h":
       case "--help":
         sb.append("Usage: os [-[nvah]]");
@@ -83,9 +83,9 @@ public class Env implements CommandContext {
   }
 
   private String alias(String cmd) {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    String alias = cmd.split("=")[0].trim().replaceAll(" ", "_");
-    String original = cmd.split("=")[1].trim();
+    String command = CommandUtils.parseInlineCommands(cmd);
+    String alias = command.split("=")[0].trim().replaceAll(" ", "_");
+    String original = command.split("=")[1].trim();
     if (CommandUtils.COMMAND_LISTENERS.containsKey(alias)) {
       String errTxt = "Can't set alias \"" + alias + "\", a command with that name already exists!";
       Printer.err.println(errTxt);

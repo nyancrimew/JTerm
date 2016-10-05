@@ -25,8 +25,8 @@ public class Scripting implements CommandContext {
   }
 
   private boolean eval(String arg) throws ScriptException {
-    arg = CommandUtils.parseInlineCommands(arg);
-    return (boolean) JTerm.getJsEngine().eval(arg);
+    String expr = CommandUtils.parseInlineCommands(arg);
+    return (boolean) JTerm.getJsEngine().eval(expr);
   }
 
   private boolean ifThenElse(String args) throws ScriptException {
@@ -57,15 +57,15 @@ public class Scripting implements CommandContext {
   }
 
   private String readLine(String arg) {
-    arg = CommandUtils.parseInlineCommands(arg);
-    Printer.out.forced().print(arg + " ");
+    String hint = CommandUtils.parseInlineCommands(arg);
+    Printer.out.forced().print(hint + " ");
     return JTerm.getScanner().nextLine();
   }
 
   private Object var(String args) throws ScriptException {
-    args = CommandUtils.parseInlineCommands(args);
-    String name = args.split("=")[0].trim();
-    String value = args.split("=")[1].trim();
+    String arguments = CommandUtils.parseInlineCommands(args);
+    String name = arguments.split("=")[0].trim();
+    String value = arguments.split("=")[1].trim();
     if (!value.matches("[0-9]*|true|false")) {
       value = "\"" + value + "\"";
     }
@@ -74,15 +74,15 @@ public class Scripting implements CommandContext {
   }
 
   private Object getVar(String arg) throws ScriptException {
-    arg = CommandUtils.parseInlineCommands(arg);
-    Object value = JTerm.getJsEngine().eval(arg);
+    String name = CommandUtils.parseInlineCommands(arg);
+    Object value = JTerm.getJsEngine().eval(name);
     Printer.out.println(value);
     return value;
   }
 
   public static boolean run(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
+    String command = CommandUtils.parseInlineCommands(cmd);
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     if (Files.isDirectory(path)) {
       Printer.err.println(path + " is a directory!");
       return false;

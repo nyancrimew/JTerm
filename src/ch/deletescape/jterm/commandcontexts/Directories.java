@@ -29,8 +29,8 @@ public class Directories implements CommandContext {
   }
 
   private boolean cd(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    String path = Util.makePathString(cmd);
+    String command = CommandUtils.parseInlineCommands(cmd);
+    String path = Util.makePathString(command);
     try {
       Path temp = JTerm.getCurrPath().resolve(path).toRealPath();
       if (Files.isDirectory(temp)) {
@@ -46,9 +46,9 @@ public class Directories implements CommandContext {
   }
 
   private String ls(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
+    String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder out = new StringBuilder();
-    String path = Util.makePathString(cmd);
+    String path = Util.makePathString(command);
     try (Stream<Path> stream = Files.list(JTerm.getCurrPath().resolve(path))) {
       stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
     } catch (NoSuchFileException e) {
@@ -60,8 +60,8 @@ public class Directories implements CommandContext {
   }
 
   private boolean mkdir(String cmd) throws IOException {
-    cmd = CommandUtils.parseInlineCommands(cmd);
-    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd));
+    String command = CommandUtils.parseInlineCommands(cmd);
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
     try {
       Files.createDirectory(path);
       return true;

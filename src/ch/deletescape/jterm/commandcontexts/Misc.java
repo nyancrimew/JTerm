@@ -18,17 +18,17 @@ public class Misc implements CommandContext {
     CommandUtils.addListener("print", this::echo);
   }
 
-  private Object calc(String operation) throws ScriptException {
-    operation = CommandUtils.parseInlineCommands(operation);
+  private Object calc(String cmd) throws ScriptException {
+    String operation = CommandUtils.parseInlineCommands(cmd);
     Object result = JTerm.getJsEngine().eval(operation);
     Printer.out.println(result);
     return result;
   }
 
   private String help(String arg) {
-    arg = CommandUtils.parseInlineCommands(arg);
+    String argument = CommandUtils.parseInlineCommands(arg);
     StringBuilder output = new StringBuilder("Available commands:\n");
-    if ("-a".equals(arg) || "-all".equals(arg)) {
+    if ("-a".equals(argument) || "-all".equals(argument)) {
       CommandUtils.COMMAND_LISTENERS.keySet().stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
     } else {
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
@@ -36,8 +36,8 @@ public class Misc implements CommandContext {
     return Printer.out.println(output);
   }
 
-  private String echo(String text) {
-    text = CommandUtils.parseInlineCommands(text);
+  private String echo(String cmd) {
+    String text = CommandUtils.parseInlineCommands(cmd);
     return Printer.out.println(text.replaceAll("^\"|\"$", ""));
   }
 }

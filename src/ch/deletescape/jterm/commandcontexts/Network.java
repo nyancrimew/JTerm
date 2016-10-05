@@ -15,7 +15,7 @@ public class Network implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("ifconfig", (o) -> ifconfig(o));
-    CommandUtils.addListener("ipconfig", (o) -> ifconfig(o));
+    CommandUtils.addListener("ifconfig", this::ifconfig);
+    CommandUtils.addListener("ipconfig", this::ifconfig);
   }
 }

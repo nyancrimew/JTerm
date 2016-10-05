@@ -120,13 +120,13 @@ public class Env implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("getEnv", (o) -> getEnv(o));
-    CommandUtils.addListener("exec", (o) -> exec(o));
-    CommandUtils.addListener("exit", (o) -> exit());
-    CommandUtils.addListener("bye", (o) -> exit());
-    CommandUtils.addListener("run", (o) -> run(o));
-    CommandUtils.addListener("os", (o) -> os(o));
-    CommandUtils.addListener("alias", o -> alias(o));
+    CommandUtils.addListener("getEnv", this::getEnv);
+    CommandUtils.addListener("exec", this::exec);
+    CommandUtils.addListener("exit", o -> exit());
+    CommandUtils.addListener("bye", o -> exit());
+    CommandUtils.addListener("run", Env::run);
+    CommandUtils.addListener("os", this::os);
+    CommandUtils.addListener("alias", this::alias);
   }
 
 }

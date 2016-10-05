@@ -33,11 +33,11 @@ public class Misc implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("calc", (o) -> calc(o));
-    CommandUtils.addListener("help", (o) -> help(o));
-    CommandUtils.addListener("?", (o) -> help(o));
-    CommandUtils.addListener("echo", (o) -> echo(o));
-    CommandUtils.addListener("echo.", (o) -> echo(o));
-    CommandUtils.addListener("print", (o) -> echo(o));
+    CommandUtils.addListener("calc", this::calc);
+    CommandUtils.addListener("help", this::help);
+    CommandUtils.addListener("?", this::help);
+    CommandUtils.addListener("echo", this::echo);
+    CommandUtils.addListener("echo.", this::echo);
+    CommandUtils.addListener("print", this::echo);
   }
 }

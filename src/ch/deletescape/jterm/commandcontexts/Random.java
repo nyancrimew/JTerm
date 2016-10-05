@@ -17,6 +17,6 @@ public class Random implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("random", (o) -> random());
+    CommandUtils.addListener("random", o -> random());
   }
 }

@@ -65,8 +65,8 @@ public class SingleFiles implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("rm", (o) -> rm(o));
-    CommandUtils.addListener("cat", (o) -> cat(o));
+    CommandUtils.addListener("rm", this::rm);
+    CommandUtils.addListener("cat", this::cat);
     CommandUtils.addListener("write", this::write);
   }
 }

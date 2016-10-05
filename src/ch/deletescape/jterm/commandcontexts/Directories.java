@@ -62,10 +62,10 @@ public class Directories implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("cd", (o) -> cd(o));
-    CommandUtils.addListener("pwd", (o) -> pwd());
-    CommandUtils.addListener("ls", (o) -> ls(o));
-    CommandUtils.addListener("dir", (o) -> ls(o));
-    CommandUtils.addListener("mkdir", (o) -> mkdir(o));
+    CommandUtils.addListener("cd", this::cd);
+    CommandUtils.addListener("pwd", o -> pwd());
+    CommandUtils.addListener("ls", this::ls);
+    CommandUtils.addListener("dir", this::ls);
+    CommandUtils.addListener("mkdir", this::mkdir);
   }
 }

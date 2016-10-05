@@ -27,7 +27,7 @@ public class DateTime implements CommandContext {
 
   @Override
   public void init() {
-    CommandUtils.addListener("time", (o) -> time());
-    CommandUtils.addListener("date", (o) -> date());
+    CommandUtils.addListener("time", o -> time());
+    CommandUtils.addListener("date", o -> date());
   }
 }

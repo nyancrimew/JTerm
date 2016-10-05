@@ -29,7 +29,7 @@ public class Env implements CommandContext {
   private String exec(String cmd) throws IOException {
     Process proc = Runtime.getRuntime().exec(cmd);
     InputStream in = proc.getInputStream();
-    return Util.copyStream(in, System.out);
+    return Util.copyStream(in, Printer.out.getPrintStream());
   }
 
   private Object exit() {

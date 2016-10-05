@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
@@ -14,11 +15,6 @@ import ch.deletescape.jterm.io.Printer;
 
 public class Directories implements CommandContext {
 
-  private String pwd() {
-    Printer.out.println(JTerm.getCurrPath());
-    return JTerm.getCurrPath().toString();
-  }
-
   @Override
   public void init() {
     CommandUtils.addListener("cd", this::cd);
@@ -26,6 +22,11 @@ public class Directories implements CommandContext {
     CommandUtils.addListener("ls", this::ls);
     CommandUtils.addListener("dir", this::ls);
     CommandUtils.addListener("mkdir", this::mkdir);
+  }
+
+  private String pwd() {
+    Printer.out.println(JTerm.getCurrPath());
+    return JTerm.getCurrPath().toString();
   }
 
   private boolean cd(String cmd) throws IOException {
@@ -40,21 +41,21 @@ public class Directories implements CommandContext {
       }
       Printer.out.println(temp + " is not a directory");
     } catch (NoSuchFileException e) {
-      Printer.out.println("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!");
+      Printer.err.println("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!");
     }
     return false;
   }
 
   private String ls(String cmd) throws IOException {
-    StringBuilder out = new StringBuilder();
     cmd = CommandUtils.parseInlineCommands(cmd);
+    StringBuilder out = new StringBuilder();
     String path = Util.makePathString(cmd);
-    try {
-      Files.list(JTerm.getCurrPath().resolve(path)).forEach(p -> out.append(p.getFileName().toString() + "\n"));
+    try (Stream<Path> stream = Files.list(JTerm.getCurrPath().resolve(path))) {
+      stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
     } catch (NoSuchFileException e) {
-      out.append("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!\n");
+      Printer.err.println("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!\n");
     } catch (NotDirectoryException e) {
-      out.append(JTerm.getCurrPath().resolve(path) + "\n");
+      Printer.err.println(JTerm.getCurrPath().resolve(path) + "\n");
     }
     Printer.out.println(out.toString());
     return out.toString();
@@ -65,10 +66,10 @@ public class Directories implements CommandContext {
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd));
     try {
       Files.createDirectory(path);
+      return true;
     } catch (FileAlreadyExistsException e) {
-      Printer.out.println("Error: Directory \"" + path + "\" already exists!");
-      return false;
+      Printer.err.println("Error: Directory \"" + path + "\" already exists!");
     }
-    return true;
+    return false;
   }
 }

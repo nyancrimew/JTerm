@@ -2,7 +2,12 @@
 var name = ${readLine Enter your name}
 var age = ${readLine Enter your age}
 echo Hi ${getVar name} you are ${getVar age} years old
-if age > 18 then echo You are an adult else echo You will need to wait ${calc 18-age} years until you are an adult
+if (age > 18)\;
+    then echo You are an adult\;
+    else echo You will need to wait ${calc 18-age} years until you are an adult
 echo
-echo do you want a random number (enter "y" or "n")
-if "${readLine >}" == "y" then echo here you go: ${random} else echo a "choose again" feature will be implemented later
+
+var times = ${readLine How many random numbers do you want?}
+var count = 0
+while (count++<=times) do\;
+    echo Here you go: ${random}

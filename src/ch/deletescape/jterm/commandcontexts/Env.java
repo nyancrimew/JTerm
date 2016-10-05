@@ -59,7 +59,17 @@ public class Env implements CommandContext {
         Path bak = JTerm.getCurrPath();
         JTerm.setCurrPath(path.getParent());
         try (BufferedReader in = Files.newBufferedReader(path)) {
-          in.lines().forEach(CommandUtils::evaluateCommand);
+          String s = in.readLine();
+          while (s != null) {
+            while (s.endsWith("\\;")) {
+              s = s.substring(0, s.length() - 2) + " " + in.readLine().trim();
+            }
+            s = s.trim();
+            if (!"".equals(s)) {
+              CommandUtils.evaluateCommand(s);
+            }
+            s = in.readLine();
+          }
         }
         JTerm.setCurrPath(bak);
         return true;

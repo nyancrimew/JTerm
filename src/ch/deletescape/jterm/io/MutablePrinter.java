@@ -12,6 +12,7 @@ public class MutablePrinter {
 
     @Override
     public void write(int b) throws IOException {
+      // Empty write method to avoid output if stream is requested but Printer is muted
     }
   });
 

@@ -22,9 +22,7 @@ public class CommandUtils {
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.*?\\}");
 
-  public static void initializeEnv() throws IOException {
-    COMMAND_LISTENERS.clear();
-    BASE_COMMANDS.clear();
+  static void initializeEnv() throws IOException {
     try (InputStreamReader in = new InputStreamReader(CommandUtils.class.getResourceAsStream("/contexts.ctx"))) {
       BufferedReader br = new BufferedReader(in);
       for (String str = br.readLine(); str != null; str = br.readLine()) {
@@ -33,7 +31,6 @@ public class CommandUtils {
       }
     }
     BASE_COMMANDS.addAll(COMMAND_LISTENERS.keySet());
-    setCommentListeners();
     PrintStream out = System.out;
     Util.muteSysOut();
     Path jtermrc = JTerm.getCurrPath().resolve(".jtermrc");
@@ -45,7 +42,7 @@ public class CommandUtils {
 
   public static Object evaluateCommand(String cmd) {
     Object ret = null;
-    if (cmd.startsWith("#")) {
+    if (cmd.startsWith("#") || cmd.startsWith("rem ")) {
       return null;
     }
     try {
@@ -97,11 +94,5 @@ public class CommandUtils {
       System.setOut(out);
     }
     return tmp;
-  }
-
-  private static void setCommentListeners() {
-    addListener("rem", (o) -> {
-      return null;
-    });
   }
 }

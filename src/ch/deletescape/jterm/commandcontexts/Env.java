@@ -12,10 +12,6 @@ import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 
 public class Env implements CommandContext {
-  private boolean jTerm(String arg) throws IOException {
-    JTerm.main(arg.length() > 0 ? arg.split(" ") : new String[0]);
-    return true;
-  }
 
   private String getEnv(String cmd) {
     StringBuilder output = new StringBuilder();
@@ -130,7 +126,6 @@ public class Env implements CommandContext {
     CommandUtils.addListener("run", (o) -> run(o));
     CommandUtils.addListener("os", (o) -> os(o));
     CommandUtils.addListener("alias", o -> alias(o));
-    CommandUtils.addListener("jTerm", o -> jTerm(o));
   }
 
 }

@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -22,7 +21,6 @@ public class JTerm {
     if (home == null) {
       home = System.getProperty("user.dir");
     }
-    JSENGINE.setBindings(JSENGINE.createBindings(), ScriptContext.ENGINE_SCOPE);
     CommandUtils.initializeEnv();
     System.out.println("JTerm, a simple terminal written in Java by Till Kottmann");
     if (args.length > 0) {

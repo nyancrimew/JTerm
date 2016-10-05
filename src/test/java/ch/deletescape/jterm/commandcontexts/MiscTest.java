@@ -22,4 +22,16 @@ public class MiscTest {
     assertThat(misc.calc("++i"), is(2d));
   }
 
+  @Test
+  public void echoTest() {
+    Misc misc = new Misc();
+    assertThat(misc.echo("Test"), is("Test"));
+  }
+
+  @Test
+  public void echoTestWithQuotes() {
+    Misc misc = new Misc();
+    assertThat(misc.echo("\"Test\""), is("Test"));
+  }
+
 }

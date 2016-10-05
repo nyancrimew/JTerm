@@ -49,9 +49,8 @@ public class Scripting implements CommandContext {
   }
 
   private String readLine(String arg) {
-    Printer.out.forced().print(arg);
-    String line = JTerm.getScanner().nextLine();
-    return line;
+    Printer.out.forced().print(arg + " ");
+    return JTerm.getScanner().nextLine();
   }
 
   private Object var(String args) throws ScriptException {

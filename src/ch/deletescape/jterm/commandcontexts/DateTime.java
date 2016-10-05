@@ -11,6 +11,12 @@ public class DateTime implements CommandContext {
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd");
   private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm:ss.SSS");
 
+  @Override
+  public void init() {
+    CommandUtils.addListener("time", o -> time());
+    CommandUtils.addListener("date", o -> date());
+  }
+
   private String time() {
     Date time = Calendar.getInstance().getTime();
     String timeString = TIME_FORMAT.format(time);
@@ -23,11 +29,5 @@ public class DateTime implements CommandContext {
     String dateString = DATE_FORMAT.format(date);
     Printer.out.println(dateString);
     return dateString;
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("time", o -> time());
-    CommandUtils.addListener("date", o -> date());
   }
 }

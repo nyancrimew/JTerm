@@ -6,6 +6,11 @@ import ch.deletescape.jterm.io.Printer;
 public class Random implements CommandContext {
   private static long seedUniquifier = 8682522807148012L;
 
+  @Override
+  public void init() {
+    CommandUtils.addListener("random", o -> random());
+  }
+
   private long random() {
     long x = System.currentTimeMillis() * ++seedUniquifier;
     x ^= (x << 21);
@@ -13,10 +18,5 @@ public class Random implements CommandContext {
     x ^= (x << 4);
     Printer.out.println(Math.abs(x));
     return Math.abs(x);
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("random", o -> random());
   }
 }

@@ -19,6 +19,15 @@ public class Directories implements CommandContext {
     return JTerm.getCurrPath().toString();
   }
 
+  @Override
+  public void init() {
+    CommandUtils.addListener("cd", this::cd);
+    CommandUtils.addListener("pwd", o -> pwd());
+    CommandUtils.addListener("ls", this::ls);
+    CommandUtils.addListener("dir", this::ls);
+    CommandUtils.addListener("mkdir", this::mkdir);
+  }
+
   private boolean cd(String cmd) throws IOException {
     String path = Util.makePathString(cmd);
     try {
@@ -58,14 +67,5 @@ public class Directories implements CommandContext {
       return false;
     }
     return true;
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("cd", this::cd);
-    CommandUtils.addListener("pwd", o -> pwd());
-    CommandUtils.addListener("ls", this::ls);
-    CommandUtils.addListener("dir", this::ls);
-    CommandUtils.addListener("mkdir", this::mkdir);
   }
 }

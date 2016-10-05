@@ -13,6 +13,13 @@ import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
 public class SingleFiles implements CommandContext {
+  @Override
+  public void init() {
+    CommandUtils.addListener("rm", this::rm);
+    CommandUtils.addListener("cat", this::cat);
+    CommandUtils.addListener("write", this::write);
+  }
+
   private boolean rm(String cmd) throws IOException {
     try {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
@@ -61,12 +68,5 @@ public class SingleFiles implements CommandContext {
       bw.write(content);
     }
     return null;
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("rm", this::rm);
-    CommandUtils.addListener("cat", this::cat);
-    CommandUtils.addListener("write", this::write);
   }
 }

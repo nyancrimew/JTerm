@@ -7,15 +7,15 @@ import ch.deletescape.jterm.legacy.IfConfig;
 
 public class Network implements CommandContext {
 
-  private String ifconfig(String cmd) throws SocketException {
-    String[] args = "".equals(cmd) ? new String[0] : cmd.split(" ");
-    IfConfig.main(args);
-    return "Not yet Supported";
-  }
-
   @Override
   public void init() {
     CommandUtils.addListener("ifconfig", this::ifconfig);
     CommandUtils.addListener("ipconfig", this::ifconfig);
+  }
+
+  private String ifconfig(String cmd) throws SocketException {
+    String[] args = "".equals(cmd) ? new String[0] : cmd.split(" ");
+    IfConfig.main(args);
+    return "Not yet Supported";
   }
 }

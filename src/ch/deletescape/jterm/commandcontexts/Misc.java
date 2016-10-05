@@ -8,6 +8,16 @@ import ch.deletescape.jterm.io.Printer;
 
 public class Misc implements CommandContext {
 
+  @Override
+  public void init() {
+    CommandUtils.addListener("calc", this::calc);
+    CommandUtils.addListener("help", this::help);
+    CommandUtils.addListener("?", this::help);
+    CommandUtils.addListener("echo", this::echo);
+    CommandUtils.addListener("echo.", this::echo);
+    CommandUtils.addListener("print", this::echo);
+  }
+
   private Object calc(String operation) throws ScriptException {
     Object result = JTerm.getJsEngine().eval(operation);
     Printer.out.println(result);
@@ -29,15 +39,5 @@ public class Misc implements CommandContext {
     String output = text.trim().replaceAll("\"", "");
     Printer.out.println(output);
     return output;
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("calc", this::calc);
-    CommandUtils.addListener("help", this::help);
-    CommandUtils.addListener("?", this::help);
-    CommandUtils.addListener("echo", this::echo);
-    CommandUtils.addListener("echo.", this::echo);
-    CommandUtils.addListener("print", this::echo);
   }
 }

@@ -14,6 +14,17 @@ import ch.deletescape.jterm.io.Printer;
 
 public class Env implements CommandContext {
 
+  @Override
+  public void init() {
+    CommandUtils.addListener("getEnv", this::getEnv);
+    CommandUtils.addListener("exec", this::exec);
+    CommandUtils.addListener("exit", o -> exit());
+    CommandUtils.addListener("bye", o -> exit());
+    CommandUtils.addListener("run", Env::run);
+    CommandUtils.addListener("os", this::os);
+    CommandUtils.addListener("alias", this::alias);
+  }
+
   private String getEnv(String cmd) {
     StringBuilder output = new StringBuilder();
     String env = cmd;
@@ -116,17 +127,6 @@ public class Env implements CommandContext {
     Printer.out.println(successTxt);
     CommandUtils.addListener(alias, (o) -> CommandUtils.evaluateCommand((original + " " + o).trim()));
     return successTxt;
-  }
-
-  @Override
-  public void init() {
-    CommandUtils.addListener("getEnv", this::getEnv);
-    CommandUtils.addListener("exec", this::exec);
-    CommandUtils.addListener("exit", o -> exit());
-    CommandUtils.addListener("bye", o -> exit());
-    CommandUtils.addListener("run", Env::run);
-    CommandUtils.addListener("os", this::os);
-    CommandUtils.addListener("alias", this::alias);
   }
 
 }

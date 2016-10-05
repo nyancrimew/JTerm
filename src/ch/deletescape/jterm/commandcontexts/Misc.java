@@ -19,12 +19,14 @@ public class Misc implements CommandContext {
   }
 
   private Object calc(String operation) throws ScriptException {
+    operation = CommandUtils.parseInlineCommands(operation);
     Object result = JTerm.getJsEngine().eval(operation);
     Printer.out.println(result);
     return result;
   }
 
   private String help(String arg) {
+    arg = CommandUtils.parseInlineCommands(arg);
     StringBuilder output = new StringBuilder("Available commands:\n");
     if ("-a".equals(arg) || "-all".equals(arg)) {
       CommandUtils.COMMAND_LISTENERS.keySet().stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
@@ -36,6 +38,7 @@ public class Misc implements CommandContext {
   }
 
   private String echo(String text) {
+    text = CommandUtils.parseInlineCommands(text);
     String output = text.trim().replaceAll("\"", "");
     Printer.out.println(output);
     return output;

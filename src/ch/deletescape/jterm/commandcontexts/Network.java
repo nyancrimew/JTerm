@@ -14,6 +14,7 @@ public class Network implements CommandContext {
   }
 
   private String ifconfig(String cmd) throws SocketException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     String[] args = "".equals(cmd) ? new String[0] : cmd.split(" ");
     IfConfig.main(args);
     return "Not yet Supported";

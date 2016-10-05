@@ -18,6 +18,7 @@ public class Scripting implements CommandContext {
   }
 
   private boolean eval(String arg) throws ScriptException {
+    arg = CommandUtils.parseInlineCommands(arg);
     boolean result = (boolean) JTerm.getJsEngine().eval(arg);
     return result;
   }
@@ -28,11 +29,12 @@ public class Scripting implements CommandContext {
     String part2 = args.split(" then ")[1];
     String then = hasElse ? part2.split(" else ")[0] : part2;
     if (eval(condition)) {
-      CommandUtils.evaluateCommand(then);
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(then));
       return true;
     }
     if (hasElse) {
-      CommandUtils.evaluateCommand(part2.split(" else ")[1]);
+      String elseCmd = part2.split(" else ")[1];
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseCmd));
     }
     return false;
   }
@@ -42,18 +44,20 @@ public class Scripting implements CommandContext {
     String condition = args.split(" do ")[0];
     String command = args.split(" do ")[1];
     while (eval(condition)) {
-      CommandUtils.evaluateCommand(command);
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(command));
       count++;
     }
     return count;
   }
 
   private String readLine(String arg) {
+    arg = CommandUtils.parseInlineCommands(arg);
     Printer.out.forced().print(arg + " ");
     return JTerm.getScanner().nextLine();
   }
 
   private Object var(String args) throws ScriptException {
+    args = CommandUtils.parseInlineCommands(args);
     String name = args.split("=")[0].trim();
     String value = args.split("=")[1].trim();
     if (!value.matches("[0-9]*|true|false")) {
@@ -64,6 +68,7 @@ public class Scripting implements CommandContext {
   }
 
   private Object getVar(String arg) throws ScriptException {
+    arg = CommandUtils.parseInlineCommands(arg);
     Object value = JTerm.getJsEngine().eval(arg);
     Printer.out.println(value);
     return value;

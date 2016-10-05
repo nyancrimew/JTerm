@@ -81,7 +81,10 @@ public class CommandUtils {
 
   private static String getArgs(String cmd) {
     int indx = cmd.indexOf(' ');
-    String tmp = indx != -1 ? cmd.substring(indx + 1) : "";
+    return indx != -1 ? cmd.substring(indx + 1) : "";
+  }
+
+  public static String parseInlineCommands(String tmp) {
     boolean wasMuted = Printer.out.mute(true);
     for (Matcher m = INLINE_COMMAND_PATTERN.matcher(tmp); m.find(); m = INLINE_COMMAND_PATTERN.matcher(tmp)) {
       String group = m.group();

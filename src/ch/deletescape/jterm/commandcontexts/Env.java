@@ -27,6 +27,7 @@ public class Env implements CommandContext {
   }
 
   private String getEnv(String cmd) {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     StringBuilder output = new StringBuilder();
     String env = cmd;
     if (!"".equals(env)) {
@@ -39,6 +40,7 @@ public class Env implements CommandContext {
   }
 
   private String exec(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     Process proc = Runtime.getRuntime().exec(cmd);
     InputStream in = proc.getInputStream();
     return Util.copyStream(in, Printer.out.getPrintStream());
@@ -51,6 +53,7 @@ public class Env implements CommandContext {
   }
 
   public static boolean run(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     try {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
       if (Files.isDirectory(path)) {
@@ -82,6 +85,7 @@ public class Env implements CommandContext {
   }
 
   private String os(String arg) {
+    arg = CommandUtils.parseInlineCommands(arg);
     String name = System.getProperty("os.name");
     String arch = System.getProperty("os.arch");
     String version = System.getProperty("os.version");
@@ -126,6 +130,7 @@ public class Env implements CommandContext {
   }
 
   private String alias(String cmd) {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     String str = cmd.trim();
     String alias = str.split("=")[0].trim().replaceAll(" ", "_");
     String original = str.split("=")[1].trim();

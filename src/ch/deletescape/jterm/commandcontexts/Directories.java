@@ -29,6 +29,7 @@ public class Directories implements CommandContext {
   }
 
   private boolean cd(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     String path = Util.makePathString(cmd);
     try {
       Path temp = JTerm.getCurrPath().resolve(path).toRealPath();
@@ -46,6 +47,7 @@ public class Directories implements CommandContext {
 
   private String ls(String cmd) throws IOException {
     StringBuilder out = new StringBuilder();
+    cmd = CommandUtils.parseInlineCommands(cmd);
     String path = Util.makePathString(cmd);
     try {
       Files.list(JTerm.getCurrPath().resolve(path)).forEach(p -> out.append(p.getFileName().toString() + "\n"));
@@ -59,6 +61,7 @@ public class Directories implements CommandContext {
   }
 
   private boolean mkdir(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd));
     try {
       Files.createDirectory(path);

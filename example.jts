@@ -10,4 +10,4 @@ echo
 var times = ${readLine How many random numbers do you want?}
 var count = 0
 while (count++<=times) do\;
-    echo Here you go: ${random}
+    echo Number ${getVar count}/${getVar times}: ${random}

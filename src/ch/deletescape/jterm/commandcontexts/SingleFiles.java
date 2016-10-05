@@ -21,6 +21,7 @@ public class SingleFiles implements CommandContext {
   }
 
   private boolean rm(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     try {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
       Files.delete(path);
@@ -33,6 +34,7 @@ public class SingleFiles implements CommandContext {
   }
 
   private String cat(String cmd) throws IOException {
+    cmd = CommandUtils.parseInlineCommands(cmd);
     StringBuilder sb = new StringBuilder();
     try {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
@@ -61,6 +63,7 @@ public class SingleFiles implements CommandContext {
   }
 
   private Object write(String args) throws IOException {
+    args = CommandUtils.parseInlineCommands(args);
     String content = args.split(">")[0].trim();
     String destination = args.split(">")[1].trim();
     Path dest = JTerm.getCurrPath().resolve(Util.makePathString(destination));

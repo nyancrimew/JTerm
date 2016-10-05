@@ -1,13 +1,13 @@
 package ch.deletescape.jterm.legacy;
 
+import ch.deletescape.jterm.io.Printer;
+
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-
-import ch.deletescape.jterm.io.Printer;
 
 public class IfConfig {
   public static void main(String[] args) throws SocketException {
@@ -45,7 +45,7 @@ public class IfConfig {
     }
   }
 
-  public static String getMacAddress(NetworkInterface ni) throws SocketException {
+  private static String getMacAddress(NetworkInterface ni) throws SocketException {
     if (ni == null)
       return null;
 

@@ -67,7 +67,7 @@ public class CommandUtils {
 
   static void printInputPromt() {
     String formattedPath = JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~");
-    Printer.out.forced().print("%s %s > ", JTerm.getUsr(), formattedPath);
+    Printer.out.forced().print("%s %s > ", JTerm.getUser(), formattedPath);
   }
 
   private static void initializeClass(String clazz) {

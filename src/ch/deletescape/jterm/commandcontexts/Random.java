@@ -3,7 +3,7 @@ package ch.deletescape.jterm.commandcontexts;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.io.Printer;
 
-public class Random implements CommandContext {
+public class Random extends CommandContext {
   private static long seedUniquifier = 8682522807148012L;
 
   @Override

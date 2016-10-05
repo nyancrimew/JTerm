@@ -13,7 +13,7 @@ import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
-public class SingleFiles implements CommandContext {
+public class SingleFiles extends CommandContext {
   @Override
   public void init() {
     CommandUtils.addListener("rm", this::rm);

@@ -13,7 +13,7 @@ import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
-public class Directories implements CommandContext {
+public class Directories extends CommandContext {
 
   @Override
   public void init() {

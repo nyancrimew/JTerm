@@ -5,7 +5,7 @@ import java.net.SocketException;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.legacy.IfConfig;
 
-public class Network implements CommandContext {
+public class Network extends CommandContext {
 
   @Override
   public void init() {

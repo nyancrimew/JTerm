@@ -12,7 +12,7 @@ import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
-public class Scripting implements CommandContext {
+public class Scripting extends CommandContext {
 
   @Override
   public void init() {

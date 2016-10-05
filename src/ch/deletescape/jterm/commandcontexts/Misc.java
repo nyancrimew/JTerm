@@ -6,7 +6,7 @@ import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.io.Printer;
 
-public class Misc implements CommandContext {
+public class Misc extends CommandContext {
 
   @Override
   public void init() {

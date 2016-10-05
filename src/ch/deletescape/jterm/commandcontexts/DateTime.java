@@ -7,7 +7,7 @@ import java.util.Date;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.io.Printer;
 
-public class DateTime implements CommandContext {
+public class DateTime extends CommandContext {
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd");
   private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm:ss.SSS");
 

@@ -1,7 +1,7 @@
 package ch.deletescape.jterm.commandcontexts;
 
-public interface CommandContext {
+public abstract class CommandContext {
 
-  public void init();
+  public abstract void init();
 
 }

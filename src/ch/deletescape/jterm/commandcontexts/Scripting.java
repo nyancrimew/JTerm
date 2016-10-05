@@ -84,7 +84,7 @@ public class Scripting extends CommandContext {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     if (Files.isDirectory(path)) {
-      Printer.err.println(path + " is a directory!");
+      Printer.err.println("%s is a directory!", path);
       return false;
     }
     Path bak = JTerm.getCurrPath();

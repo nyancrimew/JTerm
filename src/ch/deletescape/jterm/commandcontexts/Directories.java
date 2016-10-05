@@ -30,31 +30,26 @@ public class Directories extends CommandContext {
 
   private boolean cd(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
-    String path = Util.makePathString(command);
-    try {
-      Path temp = JTerm.getCurrPath().resolve(path).toRealPath();
-      if (Files.isDirectory(temp)) {
-        JTerm.setCurrPath(temp);
-        pwd();
-        return true;
-      }
-      Printer.out.println(temp + " is not a directory");
-    } catch (NoSuchFileException e) {
-      Printer.err.println("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!");
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
+    if (Files.isDirectory(path)) {
+      JTerm.setCurrPath(path);
+      pwd();
+      return true;
     }
+    Printer.err.println("%s is not a directory", path);
     return false;
   }
 
   private String ls(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder out = new StringBuilder();
-    String path = Util.makePathString(command);
-    try (Stream<Path> stream = Files.list(JTerm.getCurrPath().resolve(path))) {
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
+    try (Stream<Path> stream = Files.list(path)) {
       stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
     } catch (NoSuchFileException e) {
-      Printer.err.println("Error: Path \"" + JTerm.getCurrPath().resolve(path) + "\" couldn't be found!\n");
+      Printer.err.println("Error: Path \"%s\" couldn't be found!", path);
     } catch (NotDirectoryException e) {
-      Printer.err.println(JTerm.getCurrPath().resolve(path) + "\n");
+      out.append(path + "\n");
     }
     return Printer.out.println(out);
   }
@@ -66,7 +61,7 @@ public class Directories extends CommandContext {
       Files.createDirectory(path);
       return true;
     } catch (FileAlreadyExistsException e) {
-      Printer.err.println("Error: Directory \"" + path + "\" already exists!");
+      Printer.err.println("Error: Directory \"%s\" already exists!", path);
     }
     return false;
   }

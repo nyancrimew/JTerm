@@ -28,7 +28,7 @@ public class SingleFiles extends CommandContext {
       Files.delete(path);
       return true;
     } catch (NoSuchFileException e) {
-      Printer.out.println("Error: Path \"" + path + "\" couldn't be found!");
+      Printer.out.println("Error: Path \"%s\" couldn't be found!", path);
     }
     return false;
   }

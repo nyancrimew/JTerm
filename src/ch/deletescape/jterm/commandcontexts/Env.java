@@ -71,7 +71,7 @@ public class Env extends CommandContext {
         sb.append(arch);
         break;
       default:
-        Printer.err.println("Unknown option: " + argument);
+        Printer.err.println("Unknown option: %s", argument);
       case "-h":
       case "--help":
         sb.append("Usage: os [-[nvah]]");
@@ -87,13 +87,10 @@ public class Env extends CommandContext {
     String alias = command.split("=")[0].trim().replaceAll(" ", "_");
     String original = command.split("=")[1].trim();
     if (CommandUtils.COMMAND_LISTENERS.containsKey(alias)) {
-      String errTxt = "Can't set alias \"" + alias + "\", a command with that name already exists!";
-      Printer.err.println(errTxt);
-      return errTxt;
+      return Printer.err.println("Can't set alias \"%s\", a command with that name already exists!", alias);
     }
-    String successTxt = "Setting alias \"" + alias + "\" for command \"" + original + "\"";
     CommandUtils.addListener(alias, o -> CommandUtils.evaluateCommand((original + " " + o).trim()));
-    return Printer.out.println(successTxt);
+    return Printer.out.println("Setting alias \"%s\" for command \"%s\"", alias, original);
   }
 
   private boolean mute() {

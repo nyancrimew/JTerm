@@ -52,11 +52,11 @@ public class CommandUtils {
       } else if (cmd.startsWith("./")) {
         ret = Scripting.run(cmd);
       } else {
-        Printer.err.println("Unknown command: " + key);
+        Printer.err.println("Unknown command: %s", key);
         Printer.out.println("To get a list of available commands enter \"help\"");
       }
     } catch (Exception e) {
-      Printer.err.println("Error: " + e.getMessage());
+      Printer.err.println("Error: %s", e.getMessage());
     }
     return ret;
   }
@@ -66,15 +66,15 @@ public class CommandUtils {
   }
 
   static void printInputPromt() {
-    Printer.out.forced()
-        .print(JTerm.getUsr() + " " + JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~") + " > ");
+    String formattedPath = JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~");
+    Printer.out.forced().print("%s %s > ", JTerm.getUsr(), formattedPath);
   }
 
   private static void initializeClass(String clazz) {
     try {
       Class.forName(clazz).newInstance();
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-      Printer.err.println("Error while trying to load context \"" + clazz + "\" : " + e.toString());
+      Printer.err.println("Error while trying to load context \"%s\" : %e", clazz, e);
     }
   }
 

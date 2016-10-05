@@ -23,16 +23,16 @@ public class IfConfig {
         if (noConn && !showNonConnected) {
           continue;
         }
-        Printer.out.println(currInterface.getDisplayName() + " (" + currInterface.getName() + "):");
-        Printer.out.println("\tPhysical Address: " + getMacAddress(currInterface));
-        Printer.out.println("\tIndex: " + currInterface.getIndex());
+        Printer.out.println("%s (%s):", currInterface.getDisplayName(), currInterface.getName());
+        Printer.out.println("\tPhysical Address: %s", getMacAddress(currInterface));
+        Printer.out.println("\tIndex: %s", currInterface.getIndex());
         if (noConn) {
           Printer.out.println("\tNot connected");
         } else {
-          Printer.out.println("\tMTU: " + currInterface.getMTU());
+          Printer.out.println("\tMTU: %s", currInterface.getMTU());
           Printer.out.println("\tHostnames / IP-Adresses:");
           while (inetAdresses.hasMoreElements()) {
-            Printer.out.println("\t\t" + inetAdresses.nextElement().toString());
+            Printer.out.println("\t\t%s", inetAdresses.nextElement());
           }
         }
         Printer.out.println();

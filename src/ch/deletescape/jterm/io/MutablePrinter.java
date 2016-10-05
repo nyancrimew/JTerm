@@ -28,6 +28,10 @@ public class MutablePrinter {
     return x.toString();
   }
 
+  public String println(String format, Object... args) {
+    return println(String.format(format, args));
+  }
+
   public String println() {
     return println("");
   }
@@ -38,6 +42,10 @@ public class MutablePrinter {
       forced = false;
     }
     return x.toString();
+  }
+
+  public String print(String format, Object... args) {
+    return print(String.format(format, args));
   }
 
   public PrintStream getPrintStream() {

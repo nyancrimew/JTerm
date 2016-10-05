@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
@@ -36,40 +37,35 @@ public class SingleFiles implements CommandContext {
   private String cat(String cmd) throws IOException {
     cmd = CommandUtils.parseInlineCommands(cmd);
     StringBuilder sb = new StringBuilder();
-    try {
-      Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
-      if (Files.isDirectory(path)) {
-        Files.list(path).filter(p -> !Files.isDirectory(p)).forEach(p -> sb.append(printFile(p)));
-      } else {
-        sb.append(printFile(path));
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
+    if (Files.isDirectory(path)) {
+      try (Stream<Path> stream = Files.list(path)) {
+        stream.filter(p -> !Files.isDirectory(p)).forEach(p -> sb.append(printFile(p)));
       }
-    } catch (NoSuchFileException e) {
-      Printer.err
-          .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
+    } else {
+      sb.append(printFile(path));
     }
     return sb.toString();
   }
 
   private String printFile(Path path) {
     StringBuilder sb = new StringBuilder();
-    try {
-      try (InputStream in = Files.newInputStream(path)) {
-        sb.append(Util.copyStream(in, Printer.out.getPrintStream()));
-      }
+    try (InputStream in = Files.newInputStream(path)) {
+      sb.append(Util.copyStream(in, Printer.out.getPrintStream()));
     } catch (IOException e) {
       Printer.err.println(e);
     }
     return sb.toString();
   }
 
-  private Object write(String args) throws IOException {
-    args = CommandUtils.parseInlineCommands(args);
-    String content = args.split(">")[0].trim();
-    String destination = args.split(">")[1].trim();
+  private String write(String args) throws IOException {
+    args = CommandUtils.parseInlineCommands(args).trim();
+    String content = args.split(" > ")[0];
+    String destination = args.split(" > ")[1];
     Path dest = JTerm.getCurrPath().resolve(Util.makePathString(destination));
     try (BufferedWriter bw = Files.newBufferedWriter(dest)) {
       bw.write(content);
     }
-    return null;
+    return content;
   }
 }

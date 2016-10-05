@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ch.deletescape.jterm.commandcontexts.CommandContext;
 import ch.deletescape.jterm.commandcontexts.Scripting;
 import ch.deletescape.jterm.io.Printer;
 
@@ -27,7 +26,7 @@ public class CommandUtils {
       BufferedReader br = new BufferedReader(in);
       for (String str = br.readLine(); str != null; str = br.readLine()) {
         str = str.trim();
-        invokeInit(str);
+        initializeClass(str);
       }
     }
     BASE_COMMANDS.addAll(COMMAND_LISTENERS.keySet());
@@ -71,9 +70,9 @@ public class CommandUtils {
         .print(JTerm.getUsr() + " " + JTerm.getCurrPath().toString().replace(JTerm.getHome(), "~") + " > ");
   }
 
-  private static void invokeInit(String clazz) {
+  private static void initializeClass(String clazz) {
     try {
-      ((CommandContext) Class.forName(clazz).newInstance()).init();
+      Class.forName(clazz).newInstance();
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
       Printer.err.println("Error while trying to load context \"" + clazz + "\" : " + e.toString());
     }

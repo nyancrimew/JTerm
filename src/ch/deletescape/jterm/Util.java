@@ -3,7 +3,6 @@ package ch.deletescape.jterm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 
 public class Util {
   public static String makePathString(String cmd) {
@@ -19,14 +18,5 @@ public class Util {
       sb.append(new String(buffer, 0, bytesRead));
     }
     return sb.toString();
-  }
-
-  public static void muteSysOut() {
-    System.setOut(new PrintStream(new OutputStream() {
-
-      @Override
-      public void write(int b) throws IOException {
-      }
-    }));
   }
 }

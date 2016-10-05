@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
+import ch.deletescape.jterm.io.Printer;
 
 public class Env implements CommandContext {
 
@@ -21,7 +22,7 @@ public class Env implements CommandContext {
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }
-    System.out.println(output.toString());
+    Printer.out.println(output.toString());
     return output.toString();
   }
 
@@ -32,7 +33,7 @@ public class Env implements CommandContext {
   }
 
   private Object exit() {
-    System.out.println("Exiting");
+    Printer.out.println("Exiting");
     JTerm.exit();
     return null;
   }
@@ -41,7 +42,7 @@ public class Env implements CommandContext {
     try {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
       if (Files.isDirectory(path)) {
-        System.err.println(path + " is a directory!");
+        Printer.err.println(path + " is a directory!");
       } else {
         Path bak = JTerm.getCurrPath();
         JTerm.setCurrPath(path.getParent());
@@ -52,7 +53,7 @@ public class Env implements CommandContext {
         return true;
       }
     } catch (NoSuchFileException e) {
-      System.out
+      Printer.out
           .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
     }
     return false;
@@ -89,7 +90,7 @@ public class Env implements CommandContext {
         break;
       default:
         String errTXT = "Unknown option: " + arg;
-        System.err.println(errTXT);
+        Printer.err.println(errTXT);
       case "-h":
       case "--help":
         sb.append("Usage: os [-[nvah]]");
@@ -98,7 +99,7 @@ public class Env implements CommandContext {
         sb.append("\n\t-v / --version. . : Prints os version");
         sb.append("\n\t-h / --help . . . : Prints this usage information\n");
     }
-    System.out.println(sb.toString());
+    Printer.out.println(sb.toString());
     return sb.toString();
   }
 
@@ -108,11 +109,11 @@ public class Env implements CommandContext {
     String original = str.split("=")[1].trim();
     if (CommandUtils.COMMAND_LISTENERS.containsKey(alias)) {
       String errTxt = "Can't set alias \"" + alias + "\", a command with that name already exists!";
-      System.err.println(errTxt);
+      Printer.err.println(errTxt);
       return errTxt;
     }
     String successTxt = "Setting alias \"" + alias + "\" for command \"" + original + "\"";
-    System.out.println(successTxt);
+    Printer.out.println(successTxt);
     CommandUtils.addListener(alias, (o) -> CommandUtils.evaluateCommand((original + " " + o).trim()));
     return successTxt;
   }

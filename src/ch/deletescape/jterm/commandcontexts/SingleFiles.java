@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
+import ch.deletescape.jterm.io.Printer;
 
 public class SingleFiles implements CommandContext {
   private boolean rm(String cmd) throws IOException {
@@ -17,7 +18,7 @@ public class SingleFiles implements CommandContext {
       Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
       Files.delete(path);
     } catch (NoSuchFileException e) {
-      System.out
+      Printer.out
           .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
       return false;
     }
@@ -34,7 +35,7 @@ public class SingleFiles implements CommandContext {
         sb.append(printFile(path));
       }
     } catch (NoSuchFileException e) {
-      System.err
+      Printer.err
           .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
     }
     return sb.toString();
@@ -44,10 +45,10 @@ public class SingleFiles implements CommandContext {
     StringBuilder sb = new StringBuilder();
     try {
       try (InputStream in = Files.newInputStream(path)) {
-        sb.append(Util.copyStream(in, System.out));
+        sb.append(Util.copyStream(in, Printer.out.getPrintStream()));
       }
     } catch (IOException e) {
-      System.err.println(e);
+      Printer.err.println(e);
     }
     return sb.toString();
   }

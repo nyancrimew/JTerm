@@ -7,12 +7,14 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
+import ch.deletescape.jterm.io.Printer;
+
 public class IfConfig {
   public static void main(String[] args) throws SocketException {
     List<String> argsList = Arrays.asList(args);
     if (!argsList.contains("--help") && !argsList.contains("-h") && (argsList.isEmpty() || argsList.contains("-a"))) {
       boolean showNonConnected = argsList.contains("-a");
-      System.out.println("\nNetwork Configuration\n");
+      Printer.out.println("\nNetwork Configuration\n");
       Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
       while (interfaces.hasMoreElements()) {
         NetworkInterface currInterface = interfaces.nextElement();
@@ -21,25 +23,25 @@ public class IfConfig {
         if (noConn && !showNonConnected) {
           continue;
         }
-        System.out.println(currInterface.getDisplayName() + " (" + currInterface.getName() + "):");
-        System.out.println("\tPhysical Address: " + getMacAddress(currInterface));
-        System.out.println("\tIndex: " + currInterface.getIndex());
+        Printer.out.println(currInterface.getDisplayName() + " (" + currInterface.getName() + "):");
+        Printer.out.println("\tPhysical Address: " + getMacAddress(currInterface));
+        Printer.out.println("\tIndex: " + currInterface.getIndex());
         if (noConn) {
-          System.out.println("\tNot connected");
+          Printer.out.println("\tNot connected");
         } else {
-          System.out.println("\tMTU: " + currInterface.getMTU());
-          System.out.println("\tHostnames / IP-Adresses:");
+          Printer.out.println("\tMTU: " + currInterface.getMTU());
+          Printer.out.println("\tHostnames / IP-Adresses:");
           while (inetAdresses.hasMoreElements()) {
-            System.out.println("\t\t" + inetAdresses.nextElement().toString());
+            Printer.out.println("\t\t" + inetAdresses.nextElement().toString());
           }
         }
-        System.out.println("");
+        Printer.out.println();
       }
     } else {
-      System.out.println("\nUsage:");
-      System.out.println("\tifconfig -h / --help:\tShow this usage info");
-      System.out.println("\tifconfig -a:\t\tInclude not connected interfaces in the result");
-      System.out.println("\nThis is a Java ifconfig / ipconfig clone by Till Kottmann\n");
+      Printer.out.println("\nUsage:");
+      Printer.out.println("\tifconfig -h / --help:\tShow this usage info");
+      Printer.out.println("\tifconfig -a:\t\tInclude not connected interfaces in the result");
+      Printer.out.println("\nThis is a Java ifconfig / ipconfig clone by Till Kottmann\n");
     }
   }
 

@@ -8,6 +8,8 @@ import java.util.Scanner;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import ch.deletescape.jterm.io.Printer;
+
 public class JTerm {
   private static String usr = System.getProperty("user.name");
   private static String home = System.getProperty("user.home");
@@ -22,7 +24,7 @@ public class JTerm {
       home = System.getProperty("user.dir");
     }
     CommandUtils.initializeEnv();
-    System.out.println("JTerm, a simple terminal written in Java by Till Kottmann");
+    Printer.out.println("JTerm, a simple terminal written in Java by Till Kottmann");
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }

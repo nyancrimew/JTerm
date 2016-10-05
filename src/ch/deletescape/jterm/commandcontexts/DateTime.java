@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ch.deletescape.jterm.CommandUtils;
+import ch.deletescape.jterm.io.Printer;
 
 public class DateTime implements CommandContext {
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd");
@@ -13,14 +14,14 @@ public class DateTime implements CommandContext {
   private String time() {
     Date time = Calendar.getInstance().getTime();
     String timeString = TIME_FORMAT.format(time);
-    System.out.println(timeString);
+    Printer.out.println(timeString);
     return timeString;
   }
 
   private String date() {
     Date date = Calendar.getInstance().getTime();
     String dateString = DATE_FORMAT.format(date);
-    System.out.println(dateString);
+    Printer.out.println(dateString);
     return dateString;
   }
 

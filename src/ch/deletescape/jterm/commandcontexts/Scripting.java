@@ -4,6 +4,7 @@ import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.io.Printer;
 
 public class Scripting implements CommandContext {
 
@@ -48,7 +49,7 @@ public class Scripting implements CommandContext {
   }
 
   private String readLine(String arg) {
-    System.out.print(arg);
+    Printer.out.print(arg);
     String line = JTerm.getScanner().nextLine();
     return line;
   }
@@ -65,7 +66,7 @@ public class Scripting implements CommandContext {
 
   private Object getVar(String arg) throws ScriptException {
     Object value = JTerm.getJsEngine().eval(arg);
-    System.out.println(value);
+    Printer.out.println(value);
     return value;
   }
 

@@ -1,6 +1,7 @@
 package ch.deletescape.jterm.commandcontexts;
 
 import ch.deletescape.jterm.CommandUtils;
+import ch.deletescape.jterm.io.Printer;
 
 public class Random implements CommandContext {
   private static long seedUniquifier = 8682522807148012L;
@@ -10,7 +11,7 @@ public class Random implements CommandContext {
     x ^= (x << 21);
     x ^= (x >>> 35);
     x ^= (x << 4);
-    System.out.println(Math.abs(x));
+    Printer.out.println(Math.abs(x));
     return Math.abs(x);
   }
 

@@ -4,12 +4,13 @@ import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.io.Printer;
 
 public class Misc implements CommandContext {
 
   private Object calc(String operation) throws ScriptException {
     Object result = JTerm.getJsEngine().eval(operation);
-    System.out.println(result);
+    Printer.out.println(result);
     return result;
   }
 
@@ -20,13 +21,13 @@ public class Misc implements CommandContext {
     } else {
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
     }
-    System.out.println(output.toString());
+    Printer.out.println(output.toString());
     return output.toString();
   }
 
   private String echo(String text) {
     String output = text.trim().replaceAll("\"", "");
-    System.out.println(output);
+    Printer.out.println(output);
     return output;
   }
 
@@ -38,6 +39,5 @@ public class Misc implements CommandContext {
     CommandUtils.addListener("echo", (o) -> echo(o));
     CommandUtils.addListener("echo.", (o) -> echo(o));
     CommandUtils.addListener("print", (o) -> echo(o));
-
   }
 }

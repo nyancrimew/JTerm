@@ -24,7 +24,7 @@ public class Scripting extends CommandContext {
     CommandUtils.addListener("run", Scripting::run);
   }
 
-  private boolean eval(String arg) throws ScriptException {
+  boolean eval(String arg) throws ScriptException {
     String expr = CommandUtils.parseInlineCommands(arg);
     return (boolean) JTerm.getJsEngine().eval(expr);
   }
@@ -62,7 +62,7 @@ public class Scripting extends CommandContext {
     return JTerm.getScanner().nextLine();
   }
 
-  private Object var(String args) throws ScriptException {
+  Object var(String args) throws ScriptException {
     String arguments = CommandUtils.parseInlineCommands(args);
     String name = arguments.split("=")[0].trim();
     String value = arguments.split("=")[1].trim();
@@ -73,7 +73,7 @@ public class Scripting extends CommandContext {
     return JTerm.getJsEngine().eval(name);
   }
 
-  private Object getVar(String arg) throws ScriptException {
+  Object getVar(String arg) throws ScriptException {
     String name = CommandUtils.parseInlineCommands(arg);
     Object value = JTerm.getJsEngine().eval(name);
     Printer.out.println(value);

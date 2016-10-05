@@ -3,7 +3,6 @@ package ch.deletescape.jterm.commandcontexts;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 
 import javax.script.ScriptException;
@@ -27,8 +26,7 @@ public class Scripting implements CommandContext {
 
   private boolean eval(String arg) throws ScriptException {
     arg = CommandUtils.parseInlineCommands(arg);
-    boolean result = (boolean) JTerm.getJsEngine().eval(arg);
-    return result;
+    return (boolean) JTerm.getJsEngine().eval(arg);
   }
 
   private boolean ifThenElse(String args) throws ScriptException {
@@ -84,33 +82,25 @@ public class Scripting implements CommandContext {
 
   public static boolean run(String cmd) throws IOException {
     cmd = CommandUtils.parseInlineCommands(cmd);
-    try {
-      Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
-      if (Files.isDirectory(path)) {
-        Printer.err.println(path + " is a directory!");
-      } else {
-        Path bak = JTerm.getCurrPath();
-        JTerm.setCurrPath(path.getParent());
-        try (BufferedReader in = Files.newBufferedReader(path)) {
-          String s = in.readLine();
-          while (s != null) {
-            while (s.endsWith("\\;")) {
-              s = s.substring(0, s.length() - 2) + " " + in.readLine().trim();
-            }
-            s = s.trim();
-            if (!"".equals(s)) {
-              CommandUtils.evaluateCommand(s);
-            }
-            s = in.readLine();
-          }
-        }
-        JTerm.setCurrPath(bak);
-        return true;
-      }
-    } catch (NoSuchFileException e) {
-      Printer.out
-          .println("Error: Path \"" + JTerm.getCurrPath().resolve(Util.makePathString(cmd)) + "\" couldn't be found!");
+    Path path = JTerm.getCurrPath().resolve(Util.makePathString(cmd)).toRealPath();
+    if (Files.isDirectory(path)) {
+      Printer.err.println(path + " is a directory!");
+      return false;
     }
-    return false;
+    Path bak = JTerm.getCurrPath();
+    JTerm.setCurrPath(path.getParent());
+    try (BufferedReader in = Files.newBufferedReader(path)) {
+      for (String s = in.readLine(); s != null; s = in.readLine()) {
+        while (s.endsWith("\\;")) {
+          s = s.substring(0, s.length() - 2) + " " + in.readLine().trim();
+        }
+        s = s.trim();
+        if (!"".equals(s)) {
+          CommandUtils.evaluateCommand(s);
+        }
+      }
+    }
+    JTerm.setCurrPath(bak);
+    return true;
   }
 }

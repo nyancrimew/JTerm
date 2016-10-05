@@ -38,7 +38,6 @@ public class Misc implements CommandContext {
 
   private String echo(String text) {
     text = CommandUtils.parseInlineCommands(text);
-    String output = text.trim().replaceAll("^\"|\"$", "");
-    return Printer.out.println(output);
+    return Printer.out.println(text.replaceAll("^\"|\"$", ""));
   }
 }

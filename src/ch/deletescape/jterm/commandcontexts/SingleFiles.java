@@ -58,7 +58,7 @@ public class SingleFiles implements CommandContext {
   }
 
   private String write(String args) throws IOException {
-    args = CommandUtils.parseInlineCommands(args).trim();
+    args = CommandUtils.parseInlineCommands(args);
     String content = args.split(" > ")[0];
     String destination = args.split(" > ")[1];
     Path dest = JTerm.getCurrPath().resolve(Util.makePathString(destination));

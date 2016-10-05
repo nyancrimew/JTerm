@@ -84,9 +84,8 @@ public class Env implements CommandContext {
 
   private String alias(String cmd) {
     cmd = CommandUtils.parseInlineCommands(cmd);
-    String str = cmd.trim();
-    String alias = str.split("=")[0].trim().replaceAll(" ", "_");
-    String original = str.split("=")[1].trim();
+    String alias = cmd.split("=")[0].trim().replaceAll(" ", "_");
+    String original = cmd.split("=")[1].trim();
     if (CommandUtils.COMMAND_LISTENERS.containsKey(alias)) {
       String errTxt = "Can't set alias \"" + alias + "\", a command with that name already exists!";
       Printer.err.println(errTxt);

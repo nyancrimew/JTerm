@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://dl.bintray.com/content/aalmiray/kordamp' }
+    }
+    dependencies {
+        classpath 'org.kordamp:markdown-gradle-plugin:1.0.0'
+    }
+}
+apply plugin: 'org.kordamp.markdown.convert'
 apply plugin:"application"
 apply plugin:"jacoco"
 mainClassName = "ch.deletescape.jterm.JTerm"
@@ -5,9 +15,11 @@ mainClassName = "ch.deletescape.jterm.JTerm"
 repositories {
     jcenter()
 }
+
 dependencies {
     testCompile "junit:junit:4.12"
 }
+
 jacocoTestReport {
     reports {
         xml.enabled = true
@@ -15,4 +27,16 @@ jacocoTestReport {
     }
 }
 
+task deleteDoc(type: Delete){
+    delete 'src/dist'
+}
+
+markdownToHtml{
+    dependsOn deleteDoc 
+    outputDir new File("$projectDir/src/dist")
+}
+
 check.dependsOn jacocoTestReport
+distZip.dependsOn markdownToHtml
+distTar.dependsOn markdownToHtml
+clean.dependsOn deleteDoc

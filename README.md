@@ -10,7 +10,7 @@ The sources are rather messy right now and need some clean up! If you see someth
 
 ##Documentation
 
-* [User documentation](doc/Documentation.md)
+* [User documentation](src/markdown/Index.md)
 * Javadoc *to be added*
 
 ##TODO

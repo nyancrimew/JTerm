@@ -7,4 +7,5 @@ build
 .idea
 src/main/main.iml
 src/test/test.iml
+src/dist
 *.DS_Store

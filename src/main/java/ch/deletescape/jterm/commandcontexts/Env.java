@@ -24,7 +24,7 @@ public class Env extends CommandContext {
   private String getEnv(String cmd) {
     String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder output = new StringBuilder();
-    if (!"".equals(command)) {
+    if (!command.isEmpty()) {
       output.append(System.getenv(command) + "\n");
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));

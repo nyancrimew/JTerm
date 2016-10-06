@@ -96,7 +96,7 @@ public class Scripting extends CommandContext {
           s = s.substring(0, s.length() - 2) + " " + in.readLine().trim(); 
         }
         s = s.trim();
-        if (!"".equals(s)) { 
+        if (!s.isEmpty()) { 
           CommandUtils.evaluateCommand(s);
         }
       }

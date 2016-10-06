@@ -11,7 +11,6 @@ repositories {
 
 dependencies {
     testCompile "junit:junit:4.12"
-    compile "org.kordamp:markdown-gradle-plugin:1.0.0"
 }
 
 jacocoTestReport {

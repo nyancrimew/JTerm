@@ -8,6 +8,11 @@ This all started as a small playground project when I didn't have that much to d
 
 The sources are rather messy right now and need some clean up! If you see something you could do better, then do it better and send me a PR!
 
+##Documentation
+
+* [User documentation](doc/Documentation.md)
+* Javadoc *to be added*
+
 ##TODO
 
 - [ ] CleanUp

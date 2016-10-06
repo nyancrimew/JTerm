@@ -43,7 +43,6 @@ public class Misc extends CommandContext {
   }
 
   private void appendCommand(StringBuilder sb, String command) {
-    sb.append('\t');
     sb.append(command);
     sb.append("\t\t");
     sb.append(Resources.getShortHelp(command));

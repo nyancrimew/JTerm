@@ -4,6 +4,7 @@ import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class Misc extends CommandContext {
@@ -27,7 +28,7 @@ public class Misc extends CommandContext {
 
   private String help(String arg) {
     String argument = CommandUtils.parseInlineCommands(arg);
-    StringBuilder output = new StringBuilder("Available commands:\n");
+    StringBuilder output = new StringBuilder(Resources.getString("Misc.HelpTitle"));
     if ("-a".equals(argument) || "-all".equals(argument)) {
       CommandUtils.COMMAND_LISTENERS.keySet().stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
     } else {

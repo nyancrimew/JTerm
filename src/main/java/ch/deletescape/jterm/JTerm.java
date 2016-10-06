@@ -1,18 +1,19 @@
 package ch.deletescape.jterm;
 
-import ch.deletescape.jterm.io.Printer;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+import ch.deletescape.jterm.io.Printer;
+
 public class JTerm {
   private static final String USER = System.getProperty("user.name");
   private static String home = System.getProperty("user.home");
-  private static Path currPath = Paths.get(System.getProperty("user.dir"));
+  private static Path currPath;
   private static boolean isRunning = true;
   private static final Scanner SCANNER = new Scanner(System.in);
   private static final ScriptEngineManager SCRIPT_MANAGER = new ScriptEngineManager();
@@ -51,6 +52,9 @@ public class JTerm {
   }
 
   public static Path getCurrPath() {
+    if(currPath == null){
+      currPath = Paths.get(home);
+    }
     return currPath;
   }
 

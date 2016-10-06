@@ -27,14 +27,27 @@ public class Misc extends CommandContext {
   }
 
   private String help(String arg) {
-    String argument = CommandUtils.parseInlineCommands(arg);
-    StringBuilder output = new StringBuilder(Resources.getString("Misc.HelpTitle"));
-    if ("-a".equals(argument) || "-all".equals(argument)) {
-      CommandUtils.COMMAND_LISTENERS.keySet().stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
-    } else {
-      CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> output.append("\t" + s + "\n"));
+    String command = CommandUtils.parseInlineCommands(arg);
+    StringBuilder output = new StringBuilder();
+    if (arg.isEmpty()) {
+      output.append(Resources.getString("Misc.HelpTitle"));
+      CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> appendCommand(output, s));
+    } else{
+      String help = Resources.getHelp(command);
+      if(help.isEmpty()){
+        help = String.format(Resources.getString("Misc.NoHelpFound"),command);
+      }
+      output.append(help);
     }
     return Printer.out.println(output);
+  }
+
+  private void appendCommand(StringBuilder sb, String command) {
+    sb.append('\t');
+    sb.append(command);
+    sb.append("\t\t");
+    sb.append(Resources.getShortHelp(command));
+    sb.append('\n');
   }
 
   String echo(String cmd) {

@@ -82,7 +82,7 @@ public class Env extends CommandContext {
     return Printer.out.println(sb);
   }
 
-  private String alias(String cmd) {
+  String alias(String cmd) {
     String command = CommandUtils.parseInlineCommands(cmd);
     String alias = command.split("=")[0].trim().replaceAll(" ", "_");
     String original = command.split("=")[1].trim();

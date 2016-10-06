@@ -4,6 +4,8 @@ plugins {
 apply plugin:"application"
 apply plugin:"jacoco"
 mainClassName = "ch.deletescape.jterm.JTerm"
+version "v0.0.1"
+applicationName = "JTerm"
 
 repositories {
     jcenter()

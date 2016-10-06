@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
@@ -36,7 +37,7 @@ public class Directories extends CommandContext {
       pwd();
       return true;
     }
-    Printer.err.println("%s is not a directory", path);
+    Printer.err.println(Resources.getString("Directories.PathIsNotDirectory"), path);
     return false;
   }
 
@@ -47,7 +48,7 @@ public class Directories extends CommandContext {
     try (Stream<Path> stream = Files.list(path)) {
       stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
     } catch (NoSuchFileException e) {
-      Printer.err.println("Error: Path \"%s\" couldn't be found!", path);
+      Printer.err.println(Resources.getString("PathNotFound"), path);
     } catch (NotDirectoryException e) {
       out.append(path + "\n");
     }
@@ -61,7 +62,7 @@ public class Directories extends CommandContext {
       Files.createDirectory(path);
       return true;
     } catch (FileAlreadyExistsException e) {
-      Printer.err.println("Error: Directory \"%s\" already exists!", path);
+      Printer.err.println(Resources.getString("Directories.DirectoryAlreadyExists"), path);
     }
     return false;
   }

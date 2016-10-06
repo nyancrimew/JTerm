@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
@@ -28,7 +29,7 @@ public class SingleFiles extends CommandContext {
       Files.delete(path);
       return true;
     } catch (NoSuchFileException e) {
-      Printer.out.println("Error: Path \"%s\" couldn't be found!", path);
+      Printer.out.println(Resources.getString("PathNotFound"), path);
     }
     return false;
   }

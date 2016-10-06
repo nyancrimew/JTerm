@@ -24,7 +24,7 @@ public class JTerm {
       home = System.getProperty("user.dir");
     }
     CommandUtils.initializeEnv();
-    Printer.out.println("JTerm, a simple terminal written in Java by Deletescape Media");
+    Printer.out.println(Resources.getString("JTerm.BannerLine"));
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }

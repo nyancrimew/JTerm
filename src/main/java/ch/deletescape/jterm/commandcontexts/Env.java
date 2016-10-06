@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
+import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.io.Printer;
 
@@ -50,13 +51,7 @@ public class Env extends CommandContext {
     StringBuilder sb = new StringBuilder();
     switch (argument) {
       case "":
-        sb.append("Name . . . . . : ");
-        sb.append(name);
-        sb.append("\nArchitecture . : ");
-        sb.append(arch);
-        sb.append("\nVersion. . . . : ");
-        sb.append(version);
-        sb.append('\n');
+        sb.append(String.format(Resources.getString("Env.DefaultFormat"),name,arch,version));
         break;
       case "-n":
       case "--name":
@@ -71,12 +66,10 @@ public class Env extends CommandContext {
         sb.append(arch);
         break;
       default:
-        Printer.err.println("Unknown option: %s", argument);
+        Printer.err.println(Resources.getString("Env.UnknownOption"), argument);
       case "-h":
       case "--help":
-        sb.append("Usage: os [-[nvah]]");
-        sb.append("\n\t-n / --name . . . : Prints os name\n\t-a / --arch . . . : Prints os architecture");
-        sb.append("\n\t-v / --version. . : Prints os version\n\t-h / --help . . . : Prints this usage information\n");
+        sb.append(Resources.getString("Env.UsageInfo"));
         break;
     }
     return Printer.out.println(sb);
@@ -87,10 +80,10 @@ public class Env extends CommandContext {
     String alias = command.split("=")[0].trim().replaceAll(" ", "_");
     String original = command.split("=")[1].trim();
     if (CommandUtils.COMMAND_LISTENERS.containsKey(alias)) {
-      return Printer.err.println("Can't set alias \"%s\", a command with that name already exists!", alias);
+      return Printer.err.println(Resources.getString("Env.CantSetAlias"), alias);
     }
     CommandUtils.addListener(alias, o -> CommandUtils.evaluateCommand((original + " " + o).trim()));
-    return Printer.out.println("Setting alias \"%s\" for command \"%s\"", alias, original);
+    return Printer.out.println(Resources.getString("Env.SettingAlias"), alias, original);
   }
 
   private boolean mute() {

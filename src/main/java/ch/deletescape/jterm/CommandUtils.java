@@ -52,11 +52,11 @@ public class CommandUtils {
       } else if (cmd.startsWith("./")) {
         ret = Scripting.run(cmd);
       } else {
-        Printer.err.println("Unknown command: %s", key);
-        Printer.out.println("To get a list of available commands enter \"help\"");
+        Printer.err.println(Resources.getString("CommandUtils.UnknownCommand"), key);
+        Printer.out.println(Resources.getString("CommandUtils.UnknownCommandInfo"));
       }
     } catch (Exception e) {
-      Printer.err.println("Error: %s", e.getMessage());
+      Printer.err.println(Resources.getString("CommandUtils.Error"), e.getMessage());
     }
     return ret;
   }
@@ -74,7 +74,7 @@ public class CommandUtils {
     try {
       Class.forName(clazz).newInstance();
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-      Printer.err.println("Error while trying to load context \"%s\" : %e", clazz, e);
+      Printer.err.println(Resources.getString("CommandUtils.ErrorLoadingContext"), clazz, e);
     }
   }
 

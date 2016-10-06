@@ -3,6 +3,7 @@ package ch.deletescape.jterm.commandcontexts;
 import java.net.SocketException;
 
 import ch.deletescape.jterm.CommandUtils;
+import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.legacy.IfConfig;
 
 public class Network extends CommandContext {
@@ -17,6 +18,6 @@ public class Network extends CommandContext {
     String command = CommandUtils.parseInlineCommands(cmd);
     String[] args = "".equals(command) ? new String[0] : command.split(" ");
     IfConfig.main(args);
-    return "Not yet Supported";
+    return Resources.getString("NonSupported");
   }
 }

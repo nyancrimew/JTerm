@@ -3,3 +3,10 @@ jdk:
   - oraclejdk8
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: releases
+  api_key: "0871e0112c8b576cf660895775e82366f61b52dc"
+  file: "build/distributions/JTerm.zip"
+  skip_cleanup: true
+  on:
+    tags: true

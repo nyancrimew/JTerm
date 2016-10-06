@@ -25,11 +25,18 @@ task deleteDoc(type: Delete){
 }
 
 markdownToHtml{
-    dependsOn deleteDoc 
     outputDir new File("$projectDir/src/dist")
 }
 
+javadoc {
+    destinationDir new File("$projectDir/src/dist/javadoc")
+}
+task documentation {
+    dependsOn deleteDoc
+    dependsOn javadoc
+    dependsOn markdownToHtml
+}
 check.dependsOn jacocoTestReport
-distZip.dependsOn markdownToHtml
-distTar.dependsOn markdownToHtml
+distZip.dependsOn documentation
+distTar.dependsOn documentation
 clean.dependsOn deleteDoc

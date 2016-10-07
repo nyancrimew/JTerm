@@ -12,12 +12,15 @@ import ch.deletescape.jterm.io.Printer;
 
 public class UserProperties {
   private static final Properties USER_PROPS = new Properties();
-  private static final Path PROPERTIES_PATH = Paths.get(JTerm.getHome(), ".jterm/user.properties");
+  private static final Path JTERM_DIR = Paths.get(JTerm.getHome(), ".jterm");
+  private static final Path PROPERTIES_PATH = JTERM_DIR.resolve("user.properties");
+  private static boolean firstStart;
 
   private UserProperties() {
   }
 
   public static void init() {
+    firstStart();
     loadProps();
     setDefaultLocale();
   }
@@ -33,6 +36,21 @@ public class UserProperties {
 
   public static String getProperty(String key) {
     return USER_PROPS.getProperty(key);
+  }
+
+  public static boolean isFirstStart() {
+    return firstStart;
+  }
+
+  private static void firstStart() {
+    if (!Files.exists(JTERM_DIR)) {
+      firstStart = true;
+      try {
+        Files.createDirectory(JTERM_DIR);
+      } catch (IOException e) {
+        Printer.err.println(e.toString());
+      }
+    }
   }
 
   private static void loadProps() {

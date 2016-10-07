@@ -46,13 +46,15 @@ public class UserProperties {
   }
 
   private static void saveProps() {
-    if (Files.exists(PROPERTIES_PATH)) {
-      try {
-        USER_PROPS.store(Files.newOutputStream(PROPERTIES_PATH), "JTerm user properties");
-      } catch (IOException e) {
-        Printer.err.println(e.toString());
+    try {
+      if (!Files.exists(PROPERTIES_PATH)) {
+        Files.createFile(PROPERTIES_PATH);
       }
+      USER_PROPS.store(Files.newOutputStream(PROPERTIES_PATH), "JTerm user properties");
+    } catch (IOException e) {
+      Printer.err.println(e.toString());
     }
+
   }
 
   private static void setDefaultLocale() {

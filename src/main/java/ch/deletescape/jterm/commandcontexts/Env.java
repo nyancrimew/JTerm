@@ -6,6 +6,7 @@ import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.config.Resources;
+import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
 
 public class Env extends CommandContext {
@@ -19,6 +20,8 @@ public class Env extends CommandContext {
     CommandUtils.addListener("os", this::os);
     CommandUtils.addListener("alias", this::alias);
     CommandUtils.addListener("mute", o -> mute());
+    CommandUtils.addListener("setProp", this::setProp);
+    CommandUtils.addListener("getProp", this::getProp);
   }
 
   private String getEnv(String cmd) {
@@ -51,7 +54,7 @@ public class Env extends CommandContext {
     StringBuilder sb = new StringBuilder();
     switch (argument) {
       case "":
-        sb.append(String.format(Resources.getString("Env.DefaultFormat"),name,arch,version));
+        sb.append(String.format(Resources.getString("Env.DefaultFormat"), name, arch, version));
         break;
       case "-n":
       case "--name":
@@ -84,6 +87,19 @@ public class Env extends CommandContext {
     }
     CommandUtils.addListener(alias, o -> CommandUtils.evaluateCommand((original + " " + o).trim()));
     return Printer.out.println(Resources.getString("Env.SettingAlias"), alias, original);
+  }
+
+  String setProp(String cmd) {
+    String command = CommandUtils.parseInlineCommands(cmd);
+    String key = command.split("=")[0].trim();
+    String value = command.split("=")[1].trim();
+    UserProperties.setProperty(key, value);
+    return Printer.out.println(Resources.getString("Env.SettingProp"), key, value);
+  }
+
+  String getProp(String cmd) {
+    String key = CommandUtils.parseInlineCommands(cmd);
+    return Printer.out.println(UserProperties.getProperty(key));
   }
 
   private boolean mute() {

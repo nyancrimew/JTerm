@@ -3,7 +3,7 @@ package ch.deletescape.jterm.commandcontexts;
 import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
-import ch.deletescape.jterm.Resources;
+import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 import net.objecthunter.exp4j.ExpressionBuilder;
 

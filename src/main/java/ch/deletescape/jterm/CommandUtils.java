@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ch.deletescape.jterm.commandcontexts.Scripting;
+import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class CommandUtils {

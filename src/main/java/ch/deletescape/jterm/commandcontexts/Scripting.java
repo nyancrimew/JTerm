@@ -9,8 +9,8 @@ import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
-import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.Util;
+import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class Scripting extends CommandContext {

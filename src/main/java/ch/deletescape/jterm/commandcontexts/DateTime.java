@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ch.deletescape.jterm.CommandUtils;
-import ch.deletescape.jterm.Resources;
+import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class DateTime extends CommandContext {

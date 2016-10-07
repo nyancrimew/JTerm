@@ -12,14 +12,7 @@ public class MiscTest {
   @Test
   public void simpleCalcTest() throws ScriptException {
     Misc misc = new Misc();
-    assertThat(misc.calc("1+1"), is(2));
-  }
-
-  @Test
-  public void calcWithVariables() throws ScriptException {
-    Misc misc = new Misc();
-    misc.calc("var i=1");
-    assertThat(misc.calc("++i"), is(2d));
+    assertThat(misc.calc("1+1"), is(2d));
   }
 
   @Test

@@ -3,9 +3,9 @@ package ch.deletescape.jterm.commandcontexts;
 import javax.script.ScriptException;
 
 import ch.deletescape.jterm.CommandUtils;
-import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Resources;
 import ch.deletescape.jterm.io.Printer;
+import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class Misc extends CommandContext {
 
@@ -19,10 +19,11 @@ public class Misc extends CommandContext {
     CommandUtils.addListener("print", this::echo);
   }
 
-  Object calc(String cmd) throws ScriptException {
+  double calc(String cmd) throws ScriptException {
     String operation = CommandUtils.parseInlineCommands(cmd);
-    Object result = JTerm.getJsEngine().eval(operation);
-    Printer.out.println(result);
+    double result = new ExpressionBuilder(operation).build().evaluate();
+    String out = ((int)result == result) ? String.valueOf((int)result) : String.valueOf(result);
+    Printer.out.println(out);
     return result;
   }
 
@@ -32,10 +33,10 @@ public class Misc extends CommandContext {
     if (arg.isEmpty()) {
       output.append(Resources.getString("Misc.HelpTitle"));
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> appendCommand(output, s));
-    } else{
+    } else {
       String help = Resources.getHelp(command);
-      if(help.isEmpty()){
-        help = String.format(Resources.getString("Misc.NoHelpFound"),command);
+      if (help.isEmpty()) {
+        help = String.format(Resources.getString("Misc.NoHelpFound"), command);
       }
       output.append(help);
     }

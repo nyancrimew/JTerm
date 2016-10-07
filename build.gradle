@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     testCompile "junit:junit:4.12"
+    compile group: 'net.objecthunter', name: 'exp4j', version: '0.4.7'
 }
 
 jacocoTestReport {

@@ -11,15 +11,15 @@ public class Resources {
       return Locale.ROOT;
     }
   };
-  private static final ResourceBundle STRINGS = ResourceBundle.getBundle("strings", CONTROL);
-  private static final ResourceBundle HELP = ResourceBundle.getBundle("help", CONTROL);
+  private static ResourceBundle strings = ResourceBundle.getBundle("strings", CONTROL);
+  private static ResourceBundle help = ResourceBundle.getBundle("help", CONTROL);
 
   private Resources() {
   }
 
   public static String getString(String key) {
     try {
-      return STRINGS.getString(key);
+      return strings.getString(key);
     } catch (MissingResourceException e) {
       return '!' + key + '!';
     }
@@ -27,7 +27,7 @@ public class Resources {
 
   public static String getShortHelp(String command) {
     try {
-      return HELP.getString(command + ".short");
+      return help.getString(command + ".short");
     } catch (MissingResourceException e) {
       return "";
     }
@@ -35,9 +35,14 @@ public class Resources {
 
   public static String getHelp(String command) {
     try {
-      return HELP.getString(command );
+      return help.getString(command);
     } catch (MissingResourceException e) {
       return getShortHelp(command);
     }
+  }
+
+  static void localeChanged() {
+    strings = ResourceBundle.getBundle("strings", CONTROL);
+    help = ResourceBundle.getBundle("help", CONTROL);
   }
 }

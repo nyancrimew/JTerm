@@ -4,6 +4,8 @@ plugins {
 apply plugin:"application"
 apply plugin:"jacoco"
 mainClassName = "ch.deletescape.jterm.JTerm"
+import java.text.SimpleDateFormat
+String timeStamp = new SimpleDateFormat ("yyyyMMddhhmmss").format(new Date())
 version "v0.0.1"
 applicationName = "JTerm"
 
@@ -43,3 +45,11 @@ check.dependsOn jacocoTestReport
 distZip.dependsOn documentation
 distTar.dependsOn documentation
 clean.dependsOn deleteDoc
+
+import org.apache.tools.ant.filters.*
+ 
+processResources {
+    filter ReplaceTokens, tokens: [
+        "build.version": version + "_" + timeStamp    
+    ]
+}

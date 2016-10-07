@@ -9,6 +9,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 import ch.deletescape.jterm.config.Resources;
+import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
 
 public class JTerm {
@@ -26,6 +27,9 @@ public class JTerm {
     }
     CommandUtils.initializeEnv();
     Printer.out.println(Resources.getString("JTerm.BannerLine"));
+    if (UserProperties.isFirstStart()) {
+      Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
+    }
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }
@@ -53,7 +57,7 @@ public class JTerm {
   }
 
   public static Path getCurrPath() {
-    if(currPath == null){
+    if (currPath == null) {
       currPath = Paths.get(home);
     }
     return currPath;

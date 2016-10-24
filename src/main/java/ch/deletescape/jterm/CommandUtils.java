@@ -27,7 +27,8 @@ public class CommandUtils {
   static void initializeEnv() throws IOException {
     try (InputStreamReader in = new InputStreamReader(CommandUtils.class.getResourceAsStream("/contexts.ctx"))) {
       BufferedReader br = new BufferedReader(in);
-      for (String str = br.readLine(); str != null; str = br.readLine()) {
+      String str;
+      while ((str = br.readLine()) != null) {
         str = str.trim();
         initializeClass(str);
       }

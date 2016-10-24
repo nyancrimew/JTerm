@@ -22,7 +22,7 @@ public class CommandUtils {
 
   public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<String, CommandExecutor>();
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
-  private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!(\\$\\{)))*?\\}");
+  private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!\\$\\{))*?\\}");
   public static final Set<String> CONTEXTS = new HashSet<>();
 
   static void initializeEnv() throws IOException {

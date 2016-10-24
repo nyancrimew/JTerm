@@ -11,4 +11,4 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 install: echo "skip './gradlew assemble' step"
-script: ./gradlew build --continue
+script: ./gradlew build --continue --no-daemon

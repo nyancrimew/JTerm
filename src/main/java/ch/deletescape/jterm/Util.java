@@ -25,6 +25,7 @@ public class Util {
    *          The target {@link OutputStream} to copy to
    * @return The content of input
    * @throws IOException
+   *           If IOException is thrown
    */
   public static String copyStream(InputStream input, OutputStream output) throws IOException {
     StringBuilder sb = new StringBuilder();

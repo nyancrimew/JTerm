@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class CommandUtils {
     }
     BASE_COMMANDS.addAll(COMMAND_LISTENERS.keySet());
     Printer.out.mute(true);
-    Path jtermrc = JTerm.getCurrPath().resolve(".jtermrc");
+    Path jtermrc = Paths.get(JTerm.getHome(), ".jtermrc");
     if (Files.exists(jtermrc)) {
       Scripting.run(jtermrc.toString());
     }

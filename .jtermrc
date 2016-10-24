@@ -1,1 +1,2 @@
 # This is an example for a startup script (similar to .bashrc for bash)
+# Place this in your home directory and it will be executed on every start of JTerm

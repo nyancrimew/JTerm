@@ -11,6 +11,7 @@ I am JTerm
 * [What is JTerm?](#what-is-jterm)
 * Quick start
 * Commands
+* [Scripting](Scripting.md)
 
 ##What is JTerm?
 

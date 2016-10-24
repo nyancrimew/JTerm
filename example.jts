@@ -4,10 +4,10 @@ var age = ${readLine Enter your age}
 echo Hi ${getVar name} you are ${getVar age} years old
 if (age > 18)\;
     then echo You are an adult\;
-    else echo You will need to wait ${calc 18-age} years until you are an adult
+    else echo You will need to wait ${calc 18- ${getVar age}} years until you are an adult
 echo
 
 var times = ${readLine How many random numbers do you want?}
 var count = 0
-while (count++<=times) do\;
+while (++count<=times) do\;
     echo Number ${getVar count}/${getVar times}: ${random}

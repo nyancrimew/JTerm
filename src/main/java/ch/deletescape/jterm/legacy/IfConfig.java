@@ -10,37 +10,31 @@ import java.util.List;
 import ch.deletescape.jterm.io.Printer;
 
 public class IfConfig {
-  public static void main(String[] args) throws SocketException {
-    List<String> argsList = Arrays.asList(args);
-    if (!argsList.contains("--help") && !argsList.contains("-h") && (argsList.isEmpty() || argsList.contains("-a"))) {
-      boolean showNonConnected = argsList.contains("-a");
-      Printer.out.println("\nNetwork Configuration\n");
-      Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-      while (interfaces.hasMoreElements()) {
-        NetworkInterface currInterface = interfaces.nextElement();
-        Enumeration<InetAddress> inetAdresses = currInterface.getInetAddresses();
-        boolean noConn = !inetAdresses.hasMoreElements();
-        if (noConn && !showNonConnected) {
-          continue;
-        }
-        Printer.out.println("%s (%s):", currInterface.getDisplayName(), currInterface.getName());
-        Printer.out.println("\tPhysical Address: %s", getMacAddress(currInterface));
-        Printer.out.println("\tIndex: %s", currInterface.getIndex());
-        if (noConn) {
-          Printer.out.println("\tNot connected");
-        } else {
-          Printer.out.println("\tMTU: %s", currInterface.getMTU());
-          Printer.out.println("\tHostnames / IP-Adresses:");
-          while (inetAdresses.hasMoreElements()) {
-            Printer.out.println("\t\t%s", inetAdresses.nextElement());
-          }
-        }
-        Printer.out.println();
+  public static void ifconfig(String args) throws SocketException {
+    List<String> argsList = Arrays.asList(args.split(" "));
+    boolean showNonConnected = argsList.contains("-a");
+    Printer.out.println("\nNetwork Configuration\n");
+    Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+    while (interfaces.hasMoreElements()) {
+      NetworkInterface currInterface = interfaces.nextElement();
+      Enumeration<InetAddress> inetAdresses = currInterface.getInetAddresses();
+      boolean noConn = !inetAdresses.hasMoreElements();
+      if (noConn && !showNonConnected) {
+        continue;
       }
-    } else {
-      Printer.out.println("\nUsage:");
-      Printer.out.println("\tifconfig -h / --help:\tShow this usage info");
-      Printer.out.println("\tifconfig -a:\t\tInclude not connected interfaces in the result");
+      Printer.out.println("%s (%s):", currInterface.getDisplayName(), currInterface.getName());
+      Printer.out.println("\tPhysical Address: %s", getMacAddress(currInterface));
+      Printer.out.println("\tIndex: %s", currInterface.getIndex());
+      if (noConn) {
+        Printer.out.println("\tNot connected");
+      } else {
+        Printer.out.println("\tMTU: %s", currInterface.getMTU());
+        Printer.out.println("\tHostnames / IP-Adresses:");
+        while (inetAdresses.hasMoreElements()) {
+          Printer.out.println("\t\t%s", inetAdresses.nextElement());
+        }
+      }
+      Printer.out.println();
     }
   }
 

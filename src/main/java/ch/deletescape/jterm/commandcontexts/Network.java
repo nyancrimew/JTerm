@@ -17,6 +17,6 @@ public class Network extends CommandContext {
   private String ifconfig(String cmd) throws SocketException {
     String command = CommandUtils.parseInlineCommands(cmd);
     IfConfig.ifconfig(command);
-    return Resources.getString("Not Supported");
+    return Resources.getString("NonSupported");
   }
 }

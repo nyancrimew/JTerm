@@ -5,6 +5,6 @@ public abstract class CommandContext {
     init();
   }
 
-  public abstract void init();
+  protected abstract void init();
 
 }

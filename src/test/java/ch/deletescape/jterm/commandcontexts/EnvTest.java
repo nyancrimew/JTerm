@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import ch.deletescape.jterm.io.Printer;
+
 public class EnvTest {
 
   @Test
@@ -18,5 +20,12 @@ public class EnvTest {
     Env env = new Env();
     env.setProp("test=works");
     assertThat(env.getProp("test"), is("works"));
+  }
+  @Test
+  public void muteTest() {
+    Env env = new Env();
+    assertThat(Printer.out.isMuted(),is(false));
+    assertThat(env.mute(),is(true));
+    assertThat(Printer.out.isMuted(),is(true));
   }
 }

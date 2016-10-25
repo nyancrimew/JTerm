@@ -102,7 +102,7 @@ public class Env extends CommandContext {
     return Printer.out.println(UserProperties.getProperty(key));
   }
 
-  private boolean mute() {
+  boolean mute() {
     return Printer.out.toggleMute();
   }
 

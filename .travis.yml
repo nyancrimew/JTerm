@@ -11,11 +11,13 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 install: echo "skip './gradlew assemble' step"
-script: ./gradlew build --continue --no-daemon
+script: ./gradlew build --continue --no-daemon && mv build/distributions/JTerm*.zip build/distributions/JTerm.zip && mv build/distributions/JTerm*.tar build/distributions/JTerm.tar  
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
-  file: "build/distributions/*"
+  file: 
+    - "build/distributions/JTerm.zip"
+    - "build/distributions/JTerm.tar"
   skip_cleanup: true
   on:
     tags: true

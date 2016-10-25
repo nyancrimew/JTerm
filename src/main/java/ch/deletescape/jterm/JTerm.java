@@ -79,5 +79,6 @@ public class JTerm {
 
   public static void exit() {
     isRunning = false;
+    LOGGER.info("Exiting session");
   }
 }

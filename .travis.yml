@@ -12,3 +12,10 @@ cache:
     - $HOME/.gradle/wrapper/
 install: echo "skip './gradlew assemble' step"
 script: ./gradlew build --continue --no-daemon
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: "build/distributions"
+  skip_cleanup: true
+  on:
+    tags: true

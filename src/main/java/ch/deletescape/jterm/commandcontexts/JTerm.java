@@ -17,6 +17,7 @@ public class JTerm extends CommandContext {
   protected void init() {
     CommandUtils.addListener("version", o -> version());
     CommandUtils.addListener("buildtime", o -> buildTime());
+    CommandUtils.addListener("javaVersion", o -> javaVersion());
   }
 
   private String version() {
@@ -26,5 +27,9 @@ public class JTerm extends CommandContext {
   private String buildTime() throws ParseException {
     Date date = FORMAT.parse(Resources.getString("JTerm.BuildTimestamp"));
     return Printer.out.println(LOCALE_FORMAT.format(date));
+  }
+
+  private String javaVersion() {
+    return Printer.out.println(System.getProperty("java.version"));
   }
 }

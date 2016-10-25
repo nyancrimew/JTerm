@@ -80,7 +80,12 @@ public class UserProperties {
   private static void setDefaultLocale() {
     String userLocale = USER_PROPS.getProperty("user.locale");
     if (userLocale != null) {
-      Locale.setDefault(Locale.forLanguageTag(userLocale));
+      if (userLocale.contains("_")) {
+        String[] localeParts = userLocale.split("_");
+        Locale.setDefault(new Locale(localeParts[0], localeParts[1]));
+      } else {
+        Locale.setDefault(Locale.forLanguageTag(userLocale));
+      }
     }
     Resources.localeChanged();
   }

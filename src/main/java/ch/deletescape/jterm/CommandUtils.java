@@ -68,7 +68,7 @@ public class CommandUtils {
       }
     } catch (Exception e) {
       Printer.err.println(Resources.getString("CommandUtils.Error"), e.getMessage());
-      LOGGER.error(e.toString(), e);
+      LOGGER.error("Command "+cmd+" threw Exception: "+e.toString(), e);
     }
     return ret;
   }

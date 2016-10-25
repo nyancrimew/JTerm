@@ -1,19 +1,17 @@
 package ch.deletescape.jterm;
 
+import ch.deletescape.jterm.config.Resources;
+import ch.deletescape.jterm.config.UserProperties;
+import ch.deletescape.jterm.io.Printer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import ch.deletescape.jterm.config.Resources;
-import ch.deletescape.jterm.config.UserProperties;
-import ch.deletescape.jterm.io.Printer;
 
 public class JTerm {
   private static final String USER = System.getProperty("user.name");
@@ -44,10 +42,6 @@ public class JTerm {
       CommandUtils.evaluateCommand(SCANNER.nextLine());
     }
     SCANNER.close();
-  }
-
-  public static boolean isRunning() {
-    return isRunning;
   }
 
   public static Scanner getScanner() {

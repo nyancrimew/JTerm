@@ -1,5 +1,12 @@
 package ch.deletescape.jterm;
 
+import ch.deletescape.jterm.commandcontexts.Scripting;
+import ch.deletescape.jterm.config.Resources;
+import ch.deletescape.jterm.config.UserProperties;
+import ch.deletescape.jterm.io.Printer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,17 +20,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import ch.deletescape.jterm.commandcontexts.Scripting;
-import ch.deletescape.jterm.config.Resources;
-import ch.deletescape.jterm.config.UserProperties;
-import ch.deletescape.jterm.io.Printer;
-
 public class CommandUtils {
 
-  public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<String, CommandExecutor>();
+  public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<>();
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!\\$\\{))*?\\}");
   public static final Set<String> CONTEXTS = new HashSet<>();

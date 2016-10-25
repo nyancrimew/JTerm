@@ -1,13 +1,13 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.io.IOException;
-
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
+
+import java.io.IOException;
 
 public class Env extends CommandContext {
 
@@ -27,7 +27,8 @@ public class Env extends CommandContext {
     String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder output = new StringBuilder();
     if (!command.isEmpty()) {
-      output.append(System.getenv(command) + "\n");
+      output.append(System.getenv(command));
+      output.append('\n');
     } else {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }

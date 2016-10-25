@@ -1,7 +1,5 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import javax.script.ScriptException;
-
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
@@ -16,7 +14,7 @@ public class Misc extends CommandContext {
     CommandUtils.addListener("echo", this::echo);
   }
 
-  double calc(String cmd) throws ScriptException {
+  double calc(String cmd) {
     String operation = CommandUtils.parseInlineCommands(cmd);
     double result = new ExpressionBuilder(operation).build().evaluate();
     String out = ((int) result == result) ? String.valueOf((int) result) : String.valueOf(result);

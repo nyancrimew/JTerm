@@ -1,21 +1,16 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.NotDirectoryException;
-import java.nio.file.Path;
-import java.util.stream.Stream;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.stream.Stream;
 
 public class Directories extends CommandContext {
   private static final Logger LOGGER = LogManager.getLogger();
@@ -54,7 +49,8 @@ public class Directories extends CommandContext {
       Printer.err.println(Resources.getString("PathNotFound"), path);
       LOGGER.error(e.toString(), e);
     } catch (NotDirectoryException e) {
-      out.append(path + "\n");
+      out.append(path);
+      out.append('\n');
     }
     return Printer.out.println(out);
   }

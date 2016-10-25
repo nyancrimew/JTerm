@@ -13,10 +13,7 @@ public class Misc extends CommandContext {
   protected void init() {
     CommandUtils.addListener("calc", this::calc);
     CommandUtils.addListener("help", this::help);
-    CommandUtils.addListener("?", this::help);
     CommandUtils.addListener("echo", this::echo);
-    CommandUtils.addListener("echo.", this::echo);
-    CommandUtils.addListener("print", this::echo);
   }
 
   double calc(String cmd) throws ScriptException {

@@ -14,7 +14,6 @@ public class Network extends CommandContext {
   @Override
   protected void init() {
     CommandUtils.addListener("ifconfig", this::ifconfig);
-    CommandUtils.addListener("ipconfig", this::ifconfig);
   }
 
   private String ifconfig(String cmd) throws SocketException {

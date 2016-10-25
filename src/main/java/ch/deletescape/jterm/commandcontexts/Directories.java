@@ -25,7 +25,6 @@ public class Directories extends CommandContext {
     CommandUtils.addListener("cd", this::cd);
     CommandUtils.addListener("pwd", o -> pwd());
     CommandUtils.addListener("ls", this::ls);
-    CommandUtils.addListener("dir", this::ls);
     CommandUtils.addListener("mkdir", this::mkdir);
   }
 

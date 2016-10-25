@@ -16,7 +16,6 @@ public class Env extends CommandContext {
     CommandUtils.addListener("getEnv", this::getEnv);
     CommandUtils.addListener("exec", this::exec);
     CommandUtils.addListener("exit", o -> exit());
-    CommandUtils.addListener("bye", o -> exit());
     CommandUtils.addListener("os", this::os);
     CommandUtils.addListener("alias", this::alias);
     CommandUtils.addListener("mute", o -> mute());

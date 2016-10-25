@@ -8,10 +8,14 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.io.Printer;
 
 public class UserProperties {
+  private static final Logger LOGGER = LogManager.getLogger();
   private static final Properties USER_PROPS = new Properties();
   private static final Path JTERM_DIR = Paths.get(JTerm.getHome(), ".jterm");
   private static final Path PROPERTIES_PATH = JTERM_DIR.resolve("user.properties");
@@ -50,6 +54,7 @@ public class UserProperties {
         Files.createDirectory(JTERM_DIR);
       } catch (IOException e) {
         Printer.err.println(e.toString());
+        LOGGER.error(e.toString(), e);
       }
       setProperty("jterm.firststart", String.valueOf(Calendar.getInstance().getTimeInMillis()));
     }
@@ -61,6 +66,7 @@ public class UserProperties {
         USER_PROPS.load(Files.newInputStream(PROPERTIES_PATH));
       } catch (IOException e) {
         Printer.err.println(e.toString());
+        LOGGER.error(e.toString(), e);
       }
     }
   }
@@ -73,6 +79,7 @@ public class UserProperties {
       USER_PROPS.store(Files.newOutputStream(PROPERTIES_PATH), "JTerm user properties");
     } catch (IOException e) {
       Printer.err.println(e.toString());
+      LOGGER.error(e.toString(), e);
     }
 
   }

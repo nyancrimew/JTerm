@@ -8,6 +8,9 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
@@ -15,6 +18,8 @@ import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class SingleFiles extends CommandContext {
+  private static final Logger LOGGER = LogManager.getLogger();
+
   @Override
   protected void init() {
     CommandUtils.addListener("rm", this::rm);
@@ -30,6 +35,7 @@ public class SingleFiles extends CommandContext {
       return true;
     } catch (NoSuchFileException e) {
       Printer.out.println(Resources.getString("PathNotFound"), path);
+      LOGGER.error(e.toString(), e);
     }
     return false;
   }
@@ -54,6 +60,7 @@ public class SingleFiles extends CommandContext {
       sb.append(Util.copyStream(in, Printer.out.getPrintStream()));
     } catch (IOException e) {
       Printer.err.println(e);
+      LOGGER.error(e.toString(), e);
     }
     return sb.toString();
   }

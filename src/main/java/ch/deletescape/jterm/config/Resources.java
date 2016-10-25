@@ -4,7 +4,11 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Resources {
+  private static final Logger LOGGER = LogManager.getLogger();
   private static final ResourceBundle.Control CONTROL = new ResourceBundle.Control() {
     @Override
     public Locale getFallbackLocale(String baseName, Locale locale) {
@@ -21,6 +25,7 @@ public class Resources {
     try {
       return strings.getString(key);
     } catch (MissingResourceException e) {
+      LOGGER.error(e.toString(), e);
       return '!' + key + '!';
     }
   }
@@ -30,12 +35,13 @@ public class Resources {
       try {
         return help.getString(command);
       } catch (MissingResourceException e) {
-      //Ignore this because we want to try to get the short version if no long one is available
+        LOGGER.error(e.toString()+", We will try to find the short help string in the next step", e);
       }
     }
     try {
       return help.getString(command + ".short");
     } catch (MissingResourceException e) {
+      LOGGER.error(e.toString(), e);
       return "";
     }
   }

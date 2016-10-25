@@ -1,16 +1,14 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.text.DateFormat;
 import java.util.Date;
 
 import ch.deletescape.jterm.CommandUtils;
-import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class DateTime extends CommandContext {
-  private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Resources.getString("DateTime.DateFormat")); 
-  private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(Resources.getString("DateTime.TimeFormat"));
+  private static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(); 
+  private static final DateFormat TIME_FORMAT = DateFormat.getTimeInstance();
 
   @Override
   public void init() {
@@ -19,12 +17,10 @@ public class DateTime extends CommandContext {
   }
 
   private String time() {
-    Date time = Calendar.getInstance().getTime();
-    return Printer.out.println(TIME_FORMAT.format(time));
+    return Printer.out.println(TIME_FORMAT.format(new Date()));
   }
 
   private String date() {
-    Date date = Calendar.getInstance().getTime();
-    return Printer.out.println(DATE_FORMAT.format(date));
+    return Printer.out.println(DATE_FORMAT.format(new Date()));
   }
 }

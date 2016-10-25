@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE Configuration>
+<Configuration>
+	<Appenders>
+		<RollingFile name="Main" fileName="../logs/current.log"
+			filePattern="../logs/history-%d{yyyy_mm_dd_HH}.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %c{1} ====== %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy interval="3" />
+			<DefaultRolloverStrategy>
+				<Delete basePath="../logs">
+					<IfFileName glob="history-*.log" />
+					<IfLastModified age="8h" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="ALL">
+			<AppenderRef ref="Main" />
+		</Root>
+	</Loggers>
+</Configuration>

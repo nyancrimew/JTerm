@@ -8,6 +8,9 @@ import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
@@ -15,6 +18,7 @@ import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
 public class Directories extends CommandContext {
+  private static final Logger LOGGER = LogManager.getLogger();
 
   @Override
   protected void init() {
@@ -49,6 +53,7 @@ public class Directories extends CommandContext {
       stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
     } catch (NoSuchFileException e) {
       Printer.err.println(Resources.getString("PathNotFound"), path);
+      LOGGER.error(e.toString(), e);
     } catch (NotDirectoryException e) {
       out.append(path + "\n");
     }
@@ -63,6 +68,7 @@ public class Directories extends CommandContext {
       return true;
     } catch (FileAlreadyExistsException e) {
       Printer.err.println(Resources.getString("Directories.DirectoryAlreadyExists"), path);
+      LOGGER.error(e.toString(), e);
     }
     return false;
   }

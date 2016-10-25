@@ -8,6 +8,9 @@ import java.util.Scanner;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
@@ -20,6 +23,7 @@ public class JTerm {
   private static final Scanner SCANNER = new Scanner(System.in);
   private static final ScriptEngineManager SCRIPT_MANAGER = new ScriptEngineManager();
   private static final ScriptEngine JSENGINE = SCRIPT_MANAGER.getEngineByName("js");
+  private static final Logger LOGGER = LogManager.getLogger();
 
   public static void main(String[] args) throws IOException {
     if (home == null) {
@@ -29,10 +33,12 @@ public class JTerm {
     Printer.out.println(Resources.getString("JTerm.BannerLine"));
     if (UserProperties.isFirstStart()) {
       Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
+      LOGGER.info("Firsttime info message shown");
     }
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }
+    LOGGER.info("Session started");
     while (isRunning) {
       CommandUtils.printInputPromt();
       CommandUtils.evaluateCommand(SCANNER.nextLine());

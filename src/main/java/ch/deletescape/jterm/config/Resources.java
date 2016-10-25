@@ -25,19 +25,18 @@ public class Resources {
     }
   }
 
-  public static String getShortHelp(String command) {
+  public static String getHelp(String command, boolean shortString) {
+    if (!shortString) {
+      try {
+        return help.getString(command);
+      } catch (MissingResourceException e) {
+      //Ignore this because we want to try to get the short version if no long one is available
+      }
+    }
     try {
       return help.getString(command + ".short");
     } catch (MissingResourceException e) {
       return "";
-    }
-  }
-
-  public static String getHelp(String command) {
-    try {
-      return help.getString(command);
-    } catch (MissingResourceException e) {
-      return getShortHelp(command);
     }
   }
 

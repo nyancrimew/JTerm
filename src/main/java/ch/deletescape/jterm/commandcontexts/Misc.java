@@ -22,7 +22,7 @@ public class Misc extends CommandContext {
   double calc(String cmd) throws ScriptException {
     String operation = CommandUtils.parseInlineCommands(cmd);
     double result = new ExpressionBuilder(operation).build().evaluate();
-    String out = ((int)result == result) ? String.valueOf((int)result) : String.valueOf(result);
+    String out = ((int) result == result) ? String.valueOf((int) result) : String.valueOf(result);
     Printer.out.println(out);
     return result;
   }
@@ -34,7 +34,7 @@ public class Misc extends CommandContext {
       output.append(Resources.getString("Misc.HelpTitle"));
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> appendCommand(output, s));
     } else {
-      String help = Resources.getHelp(command);
+      String help = Resources.getHelp(command, false);
       if (help.isEmpty()) {
         help = String.format(Resources.getString("Misc.NoHelpFound"), command);
       }
@@ -46,7 +46,7 @@ public class Misc extends CommandContext {
   private void appendCommand(StringBuilder sb, String command) {
     sb.append(command);
     sb.append("\t\t");
-    sb.append(Resources.getShortHelp(command));
+    sb.append(Resources.getHelp(command, true));
     sb.append('\n');
   }
 

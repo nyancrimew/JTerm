@@ -12,7 +12,7 @@ import ch.deletescape.jterm.io.Printer;
 public class Env extends CommandContext {
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("getEnv", this::getEnv);
     CommandUtils.addListener("exec", this::exec);
     CommandUtils.addListener("exit", o -> exit());

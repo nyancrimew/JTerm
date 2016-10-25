@@ -17,7 +17,7 @@ import ch.deletescape.jterm.io.Printer;
 public class Directories extends CommandContext {
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("cd", this::cd);
     CommandUtils.addListener("pwd", o -> pwd());
     CommandUtils.addListener("ls", this::ls);

@@ -16,7 +16,7 @@ import ch.deletescape.jterm.io.Printer;
 public class Scripting extends CommandContext {
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("if", this::ifThenElse); 
     CommandUtils.addListener("while", this::whileDo); 
     CommandUtils.addListener("readLine", this::readLine); 

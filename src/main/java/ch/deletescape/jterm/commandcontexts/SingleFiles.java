@@ -16,7 +16,7 @@ import ch.deletescape.jterm.io.Printer;
 
 public class SingleFiles extends CommandContext {
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("rm", this::rm);
     CommandUtils.addListener("cat", this::cat);
     CommandUtils.addListener("write", this::write);

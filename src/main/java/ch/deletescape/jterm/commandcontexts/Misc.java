@@ -10,7 +10,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 public class Misc extends CommandContext {
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("calc", this::calc);
     CommandUtils.addListener("help", this::help);
     CommandUtils.addListener("?", this::help);

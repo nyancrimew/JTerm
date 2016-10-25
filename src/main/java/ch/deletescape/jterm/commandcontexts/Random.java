@@ -4,10 +4,10 @@ import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.io.Printer;
 
 public class Random extends CommandContext {
-  private static long seedUniquifier = 8682522807148012L;
+  private long seedUniquifier = 8682522807148012L;
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("random", o -> random());
   }
 

@@ -11,7 +11,7 @@ public class DateTime extends CommandContext {
   private static final DateFormat TIME_FORMAT = DateFormat.getTimeInstance();
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("time", o -> time()); 
     CommandUtils.addListener("date", o -> date()); 
   }

@@ -12,7 +12,7 @@ import ch.deletescape.jterm.io.Printer;
 public class Network extends CommandContext {
 
   @Override
-  public void init() {
+  protected void init() {
     CommandUtils.addListener("ifconfig", this::ifconfig);
     CommandUtils.addListener("ipconfig", this::ifconfig);
   }

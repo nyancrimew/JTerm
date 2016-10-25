@@ -5,7 +5,7 @@
 		<RollingFile name="Main" fileName="../logs/current.log"
 			filePattern="../logs/history-%d{yyyy_mm_dd_HH}.log">
 			<PatternLayout>
-				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %c{1} ====== %m%n</Pattern>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %c   %m%n</Pattern>
 			</PatternLayout>
 			<TimeBasedTriggeringPolicy interval="3" />
 			<DefaultRolloverStrategy>

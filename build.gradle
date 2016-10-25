@@ -50,6 +50,8 @@ import org.apache.tools.ant.filters.*
  
 processResources {
     filter ReplaceTokens, tokens: [
-        "build.version": version + "_" + timeStamp    
+        "build.versionstring": version + "_" + timeStamp,
+        "build.version": version,
+        "build.timestamp": timeStamp    
     ]
 }

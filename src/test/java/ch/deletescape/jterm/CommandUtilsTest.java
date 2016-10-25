@@ -27,7 +27,7 @@ public class CommandUtilsTest {
             "ch.deletescape.jterm.commandcontexts.DateTime", "ch.deletescape.jterm.commandcontexts.Random",
             "ch.deletescape.jterm.commandcontexts.Directories", "ch.deletescape.jterm.commandcontexts.Env",
             "ch.deletescape.jterm.commandcontexts.SingleFiles", "ch.deletescape.jterm.commandcontexts.Network",
-            "ch.deletescape.jterm.commandcontexts.Scripting"));
+            "ch.deletescape.jterm.commandcontexts.Scripting","ch.deletescape.jterm.commandcontexts.JTerm"));
   }
 
   @Test

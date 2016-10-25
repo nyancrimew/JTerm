@@ -3,6 +3,7 @@ package ch.deletescape.jterm;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
+import ch.deletescape.jterm.updater.UpdateChecker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +33,14 @@ public class JTerm {
     if (UserProperties.isFirstStart()) {
       Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
       LOGGER.info("Firsttime info message shown");
+    }
+    try{
+      UpdateChecker.Update update = new UpdateChecker().getLatest();
+      if(update.isNewer()){
+        Printer.out.println(Resources.getString("JTerm.UpdateFound"),update.getName(),update.getVersion());
+      }
+    }catch (IOException e){
+      LOGGER.error(e.toString(),e);
     }
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));

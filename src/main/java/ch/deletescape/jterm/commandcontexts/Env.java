@@ -89,7 +89,7 @@ public class Env extends CommandContext {
     return Printer.out.println(Resources.getString("Env.SettingAlias"), alias, original);
   }
 
-  private String setProp(String cmd) {
+  String setProp(String cmd) {
     String command = CommandUtils.parseInlineCommands(cmd);
     String key = command.split("=")[0].trim();
     String value = command.split("=")[1].trim();
@@ -97,7 +97,7 @@ public class Env extends CommandContext {
     return Printer.out.println(Resources.getString("Env.SettingProp"), key, value);
   }
 
-  private String getProp(String cmd) {
+  String getProp(String cmd) {
     String key = CommandUtils.parseInlineCommands(cmd);
     return Printer.out.println(UserProperties.getProperty(key));
   }

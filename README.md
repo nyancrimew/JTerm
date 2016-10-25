@@ -1,7 +1,7 @@
-[![Travis](https://img.shields.io/travis/Deletescape-Media/JTerm.svg?maxAge=2592000)](https://travis-ci.org/Deletescape-Media/JTerm)
-[![Codecov](https://img.shields.io/codecov/c/github/Deletescape-Media/JTerm.svg?maxAge=2592000)](https://codecov.io/gh/Deletescape-Media/JTerm)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0a266e559ca7476fa50d58488636d36f)](https://www.codacy.com/app/deletescape/JTerm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Deletescape-Media/JTerm&amp;utm_campaign=Badge_Grade)
-[![Github All Releases](https://img.shields.io/github/downloads/Deletescape-Media/JTerm/total.svg?maxAge=2592000)](https://github.com/Deletescape-Media/JTerm/releases)
+[![Travis](https://img.shields.io/travis/Deletescape-Media/JTerm.svg)](https://travis-ci.org/Deletescape-Media/JTerm)
+[![Codecov](https://img.shields.io/codecov/c/github/Deletescape-Media/JTerm.svg)](https://codecov.io/gh/Deletescape-Media/JTerm)
+[![Codacy grade](https://img.shields.io/codacy/grade/0a266e559ca7476fa50d58488636d36f.svg)](https://www.codacy.com/app/deletescape/JTerm)
+[![Github All Releases](https://img.shields.io/github/downloads/Deletescape-Media/JTerm/total.svg)](https://github.com/Deletescape-Media/JTerm/releases)
 
 #JTerm - Simple, Platform independent, Open source
 

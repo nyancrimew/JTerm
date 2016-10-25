@@ -8,4 +8,5 @@ build
 src/main/main.iml
 src/test/test.iml
 src/dist
+out
 *.DS_Store

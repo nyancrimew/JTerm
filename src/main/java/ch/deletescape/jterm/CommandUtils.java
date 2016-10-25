@@ -13,6 +13,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import ch.deletescape.jterm.commandcontexts.Scripting;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
@@ -24,6 +27,7 @@ public class CommandUtils {
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!\\$\\{))*?\\}");
   public static final Set<String> CONTEXTS = new HashSet<>();
+  private static final Logger LOGGER = LogManager.getLogger();
 
   static void initializeEnv() throws IOException {
     try (InputStreamReader in = new InputStreamReader(CommandUtils.class.getResourceAsStream("/contexts.ctx"))) {
@@ -64,6 +68,7 @@ public class CommandUtils {
       }
     } catch (Exception e) {
       Printer.err.println(Resources.getString("CommandUtils.Error"), e.getMessage());
+      LOGGER.error(e.toString(), e);
     }
     return ret;
   }
@@ -82,6 +87,7 @@ public class CommandUtils {
       Class.forName(clazz).newInstance();
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
       Printer.err.println(Resources.getString("CommandUtils.ErrorLoadingContext"), clazz, e);
+      LOGGER.error("Failed to load context " + clazz, e);
     }
   }
 

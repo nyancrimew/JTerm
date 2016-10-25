@@ -67,7 +67,7 @@ public class CommandUtils {
         Printer.out.println(Resources.getString("CommandUtils.UnknownCommandInfo"));
       }
     } catch (Exception e) {
-      Printer.err.println(Resources.getString("CommandUtils.Error"), e.getMessage());
+      Printer.err.println(Resources.getString("CommandUtils.Error"), e.toString());
       LOGGER.error("Command \"" + cmd + "\" threw Exception: " + e.toString(), e);
     }
     return ret;

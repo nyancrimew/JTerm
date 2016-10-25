@@ -45,7 +45,9 @@ public class Misc extends CommandContext {
 
   private void appendCommand(StringBuilder sb, String command) {
     sb.append(command);
-    sb.append("\t\t");
+    for(int i=15-command.length();i>0;i--){
+      sb.append(' ');
+    }
     sb.append(Resources.getHelp(command, true));
     sb.append('\n');
   }

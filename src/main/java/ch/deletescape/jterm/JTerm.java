@@ -33,6 +33,7 @@ public class JTerm {
     Printer.out.println(Resources.getString("JTerm.BannerLine"));
     if (UserProperties.isFirstStart()) {
       Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
+      LOGGER.info("Firsttime info message shown");
     }
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));

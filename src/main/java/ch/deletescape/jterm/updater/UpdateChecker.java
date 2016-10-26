@@ -43,17 +43,11 @@ public class UpdateChecker {
   }
 
   private static boolean remoteVersionIsNewer(String version, String remoteVersion) {
-    if (remoteVersion == null) {
-      return false;
-    }
-    version = version.substring(1);
-    remoteVersion = remoteVersion.substring(1);
-    String[] thisParts = version.split("\\.");
-    String[] thatParts = remoteVersion.split("\\.");
-    int length = Math.max(thisParts.length, thatParts.length);
-    for (int i = 0; i < length; i++) {
-      int thisPart = i < thisParts.length ? Integer.parseInt(thisParts[i]) : 0;
-      int thatPart = i < thatParts.length ? Integer.parseInt(thatParts[i]) : 0;
+    String[] thisParts = version.substring(1).split("\\.");
+    String[] thatParts = remoteVersion.substring(1).split("\\.");
+    for (int i = 0; i < 3; i++) {
+      int thisPart = Integer.parseInt(thisParts[i]);
+      int thatPart = Integer.parseInt(thatParts[i]);
       if (thisPart < thatPart) {
         return true;
       }

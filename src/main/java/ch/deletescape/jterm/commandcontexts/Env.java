@@ -1,11 +1,9 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
-import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
@@ -15,7 +13,6 @@ public class Env extends CommandContext {
   @Override
   protected void init() {
     CommandUtils.addListener("getEnv", this::getEnv);
-    CommandUtils.addListener("exec", this::exec);
     CommandUtils.addListener("exit", o -> exit());
     CommandUtils.addListener("os", this::os);
     CommandUtils.addListener("alias", this::alias);
@@ -34,12 +31,6 @@ public class Env extends CommandContext {
       System.getenv().forEach((s1, s2) -> output.append(s1 + "=" + s2 + "\n"));
     }
     return Printer.out.println(output);
-  }
-
-  private String exec(String cmd) throws IOException {
-    String command = CommandUtils.parseInlineCommands(cmd);
-    Process proc = Runtime.getRuntime().exec(command);
-    return Util.copyStream(proc.getInputStream(), Printer.out.getPrintStream());
   }
 
   private Object exit() {

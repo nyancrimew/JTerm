@@ -1,13 +1,13 @@
 package ch.deletescape.jterm.commandcontexts;
 
+import java.io.IOException;
+
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
-
-import java.io.IOException;
 
 public class Env extends CommandContext {
 
@@ -70,9 +70,6 @@ public class Env extends CommandContext {
         break;
       default:
         Printer.err.println(Resources.getString("Env.UnknownOption"), argument);
-      case "-h":
-      case "--help":
-        sb.append(Resources.getString("Env.UsageInfo"));
         break;
     }
     return Printer.out.println(sb);

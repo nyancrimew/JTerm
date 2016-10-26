@@ -6,7 +6,7 @@ apply plugin:"jacoco"
 mainClassName = "ch.deletescape.jterm.JTerm"
 import java.text.SimpleDateFormat
 String timeStamp = new SimpleDateFormat ("yyyyMMddhhmmss").format(new Date())
-version "v0.1.0"
+version "v0.1.1"
 applicationName = "JTerm"
 
 repositories {

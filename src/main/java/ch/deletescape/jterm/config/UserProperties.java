@@ -51,6 +51,10 @@ public class UserProperties {
     return firstStart;
   }
 
+  public static Properties getProperties() {
+    return USER_PROPS;
+  }
+
   private static void firstStart() {
     if (!Files.exists(JTERM_DIR)) {
       firstStart = true;
@@ -69,7 +73,7 @@ public class UserProperties {
     if (Files.exists(PROPERTIES_PATH)) {
       try {
         USER_PROPS.load(Files.newInputStream(PROPERTIES_PATH));
-        if(USER_PROPS.getProperty("user.locale")!=userLocale){
+        if (USER_PROPS.getProperty("user.locale") != userLocale) {
           setDefaultLocale();
         }
       } catch (IOException e) {

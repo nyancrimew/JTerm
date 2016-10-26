@@ -1,6 +1,6 @@
 package ch.deletescape.jterm;
 
-import ch.deletescape.jterm.commandcontexts.Scripting;
+import ch.deletescape.jterm.commandcontexts.scripting.Scripting;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;

@@ -1,4 +1,4 @@
-package ch.deletescape.jterm.commandcontexts;
+package ch.deletescape.jterm.commandcontexts.scripting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import javax.script.ScriptException;
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.Util;
+import ch.deletescape.jterm.commandcontexts.CommandContext;
 import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.io.Printer;
 
@@ -62,18 +63,28 @@ public class Scripting extends CommandContext {
     return JTerm.getScanner().nextLine();
   }
 
-  Object var(String args) throws ScriptException {
+  Object var(String args) throws ScriptingException, ScriptException {
     String arguments = CommandUtils.parseInlineCommands(args);
     if (arguments.contains("=")) {
       String name = arguments.split("=")[0].trim();
       String value = arguments.split("=")[1].trim();
+      validateVariableName(name);
       if (!value.matches("[0-9]*|true|false")) {
         value = "\"" + value + "\"";
       }
       JTerm.getJsEngine().eval("var " + name + " = " + value);
       return JTerm.getJsEngine().eval(name);
     }
-    return Printer.out.println(JTerm.getJsEngine().eval(arguments));
+    validateVariableName(arguments);
+    Object value = JTerm.getJsEngine().eval(arguments);
+    Printer.out.println(value);
+    return value;
+  }
+
+  void validateVariableName(String name) throws ScriptingException {
+    if(!name.matches("^[a-zA-Z_$][\\w$]*")){
+      throw new ScriptingException(String.format(Resources.getString("Scripting.InvalidVariableName"),name));
+    }
   }
 
   public static boolean run(String cmd) throws IOException {

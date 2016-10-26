@@ -45,7 +45,7 @@ public class UserProperties {
 
   public static boolean getBoolean(String key) {
     String tmp = USER_PROPS.getProperty(key);
-    return tmp!=null && ("true".equals(tmp) || "1".equals("tmp"));
+    return tmp!=null && ("true".equals(tmp) || "1".equals(tmp));
   }
 
   public static boolean isFirstStart() {

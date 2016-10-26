@@ -55,6 +55,10 @@ public class UserProperties {
     return USER_PROPS;
   }
 
+  public static Path getJtermDir() {
+    return JTERM_DIR;
+  }
+
   private static void firstStart() {
     if (!Files.exists(JTERM_DIR)) {
       firstStart = true;

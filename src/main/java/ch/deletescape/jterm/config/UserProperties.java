@@ -27,7 +27,6 @@ public class UserProperties {
   public static void init() {
     firstStart();
     loadProps();
-    setDefaultLocale();
   }
 
   public static void setProperty(String key, String value) {
@@ -66,9 +65,13 @@ public class UserProperties {
   }
 
   private static void loadProps() {
+    String userLocale = USER_PROPS.getProperty("user.locale");
     if (Files.exists(PROPERTIES_PATH)) {
       try {
         USER_PROPS.load(Files.newInputStream(PROPERTIES_PATH));
+        if(USER_PROPS.getProperty("user.locale")!=userLocale){
+          setDefaultLocale();
+        }
       } catch (IOException e) {
         Printer.err.println(e.toString());
         LOGGER.error(e.toString(), e);

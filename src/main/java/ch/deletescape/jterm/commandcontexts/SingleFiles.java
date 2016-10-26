@@ -39,7 +39,7 @@ public class SingleFiles extends CommandContext {
     }
   }
 
-  private String cat(String cmd) throws IOException {
+  String cat(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     StringBuilder sb = new StringBuilder();
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();

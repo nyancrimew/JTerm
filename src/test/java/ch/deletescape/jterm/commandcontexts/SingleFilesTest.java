@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -32,4 +33,25 @@ public class SingleFilesTest {
     assertThat(sf.rm(path), is("Error: Path \"" + path + "\" couldn't be found!"));
   }
 
+  @Test
+  public void catTest() throws Exception {
+    SingleFiles sf = new SingleFiles();
+    File file = temp.newFile();
+    try (FileWriter fileWriter = new FileWriter(file)) {
+      fileWriter.write("test");
+    }
+    assertThat(sf.cat(file.getAbsolutePath()), is("test"));
+  }
+  @Test
+  public void catOnDirectory() throws Exception {
+    SingleFiles sf = new SingleFiles();
+    File folder = temp.newFolder();
+    try (FileWriter fileWriter = new FileWriter(new File(folder, "test"))) {
+      fileWriter.write("test\n");
+    }
+    try (FileWriter fileWriter = new FileWriter(new File(folder, "test2"))) {
+      fileWriter.write("it works");
+    }
+    assertThat(sf.cat(folder.getAbsolutePath()), is("test\nit works"));
+  }
 }

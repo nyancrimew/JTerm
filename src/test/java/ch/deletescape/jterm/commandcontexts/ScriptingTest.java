@@ -22,10 +22,10 @@ public class ScriptingTest {
   }
 
   @Test
-  public void varAndGetVarTest() throws ScriptException {
+  public void varTest() throws ScriptException {
     Scripting scripting = new Scripting();
     assertThat(scripting.var("i=1"), is(1));
-    assertThat(scripting.getVar("i"), is(1));
+    assertThat(scripting.var("i"), is(1));
   }
 
   @Test

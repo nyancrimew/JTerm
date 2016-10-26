@@ -45,7 +45,7 @@ public class UserProperties {
 
   public static boolean getBoolean(String key) {
     String tmp = USER_PROPS.getProperty(key);
-    return tmp!=null && ("true".equals(tmp) || "1".equals(tmp));
+    return tmp != null && ("true".equals(tmp) || "1".equals(tmp));
   }
 
   public static boolean isFirstStart() {
@@ -80,6 +80,8 @@ public class UserProperties {
     try {
       if (!Files.exists(PROPERTIES_PATH)) {
         Files.createFile(PROPERTIES_PATH);
+      } else {
+        loadProps();
       }
       USER_PROPS.store(Files.newOutputStream(PROPERTIES_PATH), "JTerm user properties");
     } catch (IOException e) {

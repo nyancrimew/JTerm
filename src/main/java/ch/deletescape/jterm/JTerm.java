@@ -1,18 +1,20 @@
 package ch.deletescape.jterm;
 
-import ch.deletescape.jterm.config.Resources;
-import ch.deletescape.jterm.config.UserProperties;
-import ch.deletescape.jterm.io.Printer;
-import ch.deletescape.jterm.updater.UpdateChecker;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import ch.deletescape.jterm.config.Resources;
+import ch.deletescape.jterm.config.UserProperties;
+import ch.deletescape.jterm.io.Printer;
+import ch.deletescape.jterm.updater.UpdateChecker;
 
 public class JTerm {
   private static final String USER = System.getProperty("user.name");
@@ -34,13 +36,15 @@ public class JTerm {
       Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
       LOGGER.info("Firsttime info message shown");
     }
-    try{
-      UpdateChecker.Update update = new UpdateChecker().getLatest();
-      if(update.isNewer()){
-        Printer.out.println(Resources.getString("JTerm.UpdateFound"),update.getName(),update.getVersion());
+    try {
+      if (!UserProperties.getBoolean("jterm.updatecheck.disable")) {
+        UpdateChecker.Update update = new UpdateChecker().getLatest();
+        if (update.isNewer()) {
+          Printer.out.println(Resources.getString("JTerm.UpdateFound"), update.getName(), update.getVersion());
+        }
       }
-    }catch (IOException e){
-      LOGGER.error(e.toString(),e);
+    } catch (IOException e) {
+      LOGGER.error(e.toString(), e);
     }
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));

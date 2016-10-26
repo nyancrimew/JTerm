@@ -43,6 +43,11 @@ public class UserProperties {
     return USER_PROPS.getProperty(key);
   }
 
+  public static boolean getBoolean(String key) {
+    String tmp = USER_PROPS.getProperty(key);
+    return tmp!=null && ("true".equals(tmp) || "1".equals("tmp"));
+  }
+
   public static boolean isFirstStart() {
     return firstStart;
   }

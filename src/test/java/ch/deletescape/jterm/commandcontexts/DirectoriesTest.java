@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,6 +35,27 @@ public class DirectoriesTest {
   }
 
   @Test
+  public void lsOnFileTest() throws Exception {
+    Directories directories = new Directories();
+    File folder = tempFolder.newFolder();
+    File file = new File(folder, "test");
+    file.createNewFile();
+    String path = file.getAbsolutePath();
+
+    assertThat(directories.ls(path), is(path));
+  }
+
+  @Test
+  public void lsOnNotExistingPath() throws Exception {
+    Locale.setDefault(Locale.ROOT);
+    Directories directories = new Directories();
+    File folder = tempFolder.newFolder();
+    String path = new File(folder, "test").getAbsolutePath();
+
+    assertThat(directories.ls(path), is("Error: Path \"" + path + "\" couldn't be found!"));
+  }
+
+  @Test
   public void mkdirTest() throws Exception {
     Directories directories = new Directories();
     File folder = tempFolder.newFolder();
@@ -42,5 +64,16 @@ public class DirectoriesTest {
     directories.mkdir(newFolder.getAbsolutePath());
 
     assertThat(newFolder.exists(), is(true));
+  }
+
+  @Test
+  public void mkdirOnAlreadyExistingFolder() throws Exception {
+    Locale.setDefault(Locale.ROOT);
+    Directories directories = new Directories();
+    File folder = tempFolder.newFolder();
+    File newFolder = new File(folder, "test");
+    newFolder.createNewFile();
+    String path = newFolder.getAbsolutePath();
+    assertThat(directories.mkdir(path), is("Error: Directory \"" + path + "\" already exists!"));
   }
 }

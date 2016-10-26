@@ -57,16 +57,15 @@ public class Directories extends CommandContext {
     }
   }
 
-  boolean mkdir(String cmd) throws IOException {
+  String mkdir(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
     try {
       Files.createDirectory(path);
-      return true;
+      return path.toString();
     } catch (FileAlreadyExistsException e) {
-      Printer.err.println(Resources.getString("Directories.DirectoryAlreadyExists"), path);
       LOGGER.error(e.toString(), e);
+      return Printer.err.println(Resources.getString("Directories.DirectoryAlreadyExists"), path);
     }
-    return false;
   }
 }

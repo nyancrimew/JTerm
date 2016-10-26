@@ -24,6 +24,15 @@ public class DirectoriesTest {
   }
 
   @Test
+  public void cdIntoFile() throws IOException {
+    Locale.setDefault(Locale.ROOT);
+    Directories directories = new Directories();
+    String path = tempFolder.newFile().getAbsolutePath();
+
+    assertThat(directories.cd(path), is(path + " is not a directory"));
+  }
+
+  @Test
   public void lsTest() throws Exception {
     Directories directories = new Directories();
     File folder = tempFolder.newFolder();

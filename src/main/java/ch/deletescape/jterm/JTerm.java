@@ -18,42 +18,25 @@ import ch.deletescape.jterm.updater.UpdateChecker;
 
 public class JTerm {
   private static final String USER = System.getProperty("user.name");
-  private static String home = System.getProperty("user.home");
-  private static Path currPath;
-  private static boolean isRunning = true;
   private static final Scanner SCANNER = new Scanner(System.in);
   private static final ScriptEngineManager SCRIPT_MANAGER = new ScriptEngineManager();
   private static final ScriptEngine JSENGINE = SCRIPT_MANAGER.getEngineByName("js");
   private static final Logger LOGGER = LogManager.getLogger();
+  private static String home = System.getProperty("user.home");
+  private static Path currPath;
+  private static boolean isRunning = true;
 
   public static void main(String[] args) throws IOException {
     if (home == null) {
       home = System.getProperty("user.dir");
     }
     CommandUtils.initializeEnv();
-    Printer.out.println(Resources.getString("JTerm.BannerLine"));
-    if (UserProperties.isFirstStart()) {
-      Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
-      LOGGER.info("Firsttime info message shown");
-    }
-    try {
-      if (!UserProperties.getBoolean("jterm.updatecheck.disable")) {
-        UpdateChecker.Update update = new UpdateChecker().getLatest();
-        if (update.isNewer()) {
-          Printer.out.println(Resources.getString("JTerm.UpdateFound"), update.getName(), update.getVersion());
-        }
-      }
-    } catch (IOException e) {
-      LOGGER.error(e.toString(), e);
-    }
+    printBanners();
     if (args.length > 0) {
       CommandUtils.evaluateCommand(String.join(" ", args));
     }
     LOGGER.info("Session started");
-    while (isRunning) {
-      CommandUtils.printInputPromt();
-      CommandUtils.evaluateCommand(SCANNER.nextLine());
-    }
+    terminalLoop();
     SCANNER.close();
   }
 
@@ -87,5 +70,30 @@ public class JTerm {
   public static void exit() {
     isRunning = false;
     LOGGER.info("Exiting session");
+  }
+
+  private static void printBanners() {
+    Printer.out.println(Resources.getString("JTerm.BannerLine"));
+    if (UserProperties.isFirstStart()) {
+      Printer.out.println(Resources.getString("JTerm.FirstTimeUser"), USER);
+      LOGGER.info("Firsttime info message shown");
+    }
+    try {
+      if (!UserProperties.getBoolean("jterm.updatecheck.disable")) {
+        UpdateChecker.Update update = new UpdateChecker().getLatest();
+        if (update.isNewer()) {
+          Printer.out.println(Resources.getString("JTerm.UpdateFound"), update.getName(), update.getVersion());
+        }
+      }
+    } catch (IOException e) {
+      LOGGER.error(e.toString(), e);
+    }
+  }
+
+  private static void terminalLoop() {
+    while (isRunning) {
+      CommandUtils.printInputPromt();
+      CommandUtils.evaluateCommand(SCANNER.nextLine());
+    }
   }
 }

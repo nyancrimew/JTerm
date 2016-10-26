@@ -18,14 +18,13 @@ public class Network extends CommandContext {
 
   private String ifconfig(String cmd) throws SocketException {
     String command = CommandUtils.parseInlineCommands(cmd);
-    boolean showNonConnected = command.contains("-a");
     Printer.out.println(Resources.getString("Network.Title"));
     Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
     while (interfaces.hasMoreElements()) {
       NetworkInterface currInterface = interfaces.nextElement();
       Enumeration<InetAddress> inetAdresses = currInterface.getInetAddresses();
       boolean noConn = !inetAdresses.hasMoreElements();
-      if (noConn && !showNonConnected) {
+      if (noConn && !command.contains("-a")) {
         continue;
       }
       Printer.out.println(Resources.getString("Network.InterfaceNameFormat"), currInterface.getDisplayName(), currInterface.getName());

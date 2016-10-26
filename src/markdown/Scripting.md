@@ -3,12 +3,17 @@
 ## Table of Contents
 
 * [Example script](#example-script)
+* [Run a script](#run-a-script)
 * [Commenting a script](#commenting-a-script)
 * [Startup script](#startup-script)
 
 ## Example script
 
 An example on how a script could look like can be found [here](Examples/example.jts) inside the Examples folder.
+
+## Run a script
+
+A script can be executed in two ways, either by using the `run` command with the path to the script or by adding `./` to the beginning of the path and executing this as a command.
 
 ## Commenting a script
 

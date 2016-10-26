@@ -32,19 +32,17 @@ public class Directories extends CommandContext {
     return Printer.out.println(JTerm.getCurrPath());
   }
 
-  private boolean cd(String cmd) throws IOException {
+  String cd(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     if (Files.isDirectory(path)) {
       JTerm.setCurrPath(path);
-      pwd();
-      return true;
+      return pwd();
     }
-    Printer.err.println(Resources.getString("Directories.PathIsNotDirectory"), path);
-    return false;
+    return Printer.err.println(Resources.getString("Directories.PathIsNotDirectory"), path);
   }
 
-  private String ls(String cmd) throws IOException {
+  String ls(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
     try (Stream<Path> stream = Files.list(path)) {
@@ -59,7 +57,7 @@ public class Directories extends CommandContext {
     }
   }
 
-  private boolean mkdir(String cmd) throws IOException {
+  boolean mkdir(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
     try {

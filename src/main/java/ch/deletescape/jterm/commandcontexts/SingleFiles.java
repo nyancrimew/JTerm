@@ -27,17 +27,16 @@ public class SingleFiles extends CommandContext {
     CommandUtils.addListener("write", this::write);
   }
 
-  private boolean rm(String cmd) throws IOException {
+  String rm(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
-    Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
     try {
+      Path path = JTerm.getCurrPath().resolve(Util.makePathString(command)).toRealPath();
       Files.delete(path);
-      return true;
+      return path.toString();
     } catch (NoSuchFileException e) {
-      Printer.out.println(Resources.getString("PathNotFound"), path);
       LOGGER.error(e.toString(), e);
+      return Printer.out.println(Resources.getString("PathNotFound"), cmd);
     }
-    return false;
   }
 
   private String cat(String cmd) throws IOException {

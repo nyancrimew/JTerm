@@ -91,8 +91,6 @@ public class UserProperties {
     try {
       if (!Files.exists(PROPERTIES_PATH)) {
         Files.createFile(PROPERTIES_PATH);
-      } else {
-        loadProps();
       }
       USER_PROPS.store(Files.newOutputStream(PROPERTIES_PATH), "JTerm user properties");
     } catch (IOException e) {

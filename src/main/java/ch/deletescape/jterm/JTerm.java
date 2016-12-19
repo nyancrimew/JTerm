@@ -26,6 +26,8 @@ public class JTerm {
   private static Path currPath;
   private static boolean isRunning = true;
 
+  private JTerm() {}
+
   public static void main(String[] args) throws IOException {
     if (home == null) {
       home = System.getProperty("user.dir");

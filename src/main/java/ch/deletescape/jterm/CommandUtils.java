@@ -51,26 +51,25 @@ public class CommandUtils {
     UserProperties.init();
   }
 
-  public static Object evaluateCommand(String cmd) {
+  public static Object evaluateCommand(String input) {
     Object ret = null;
-    if (cmd.startsWith("#") || cmd.startsWith("rem ")) {
+    if (input.startsWith("#") || input.startsWith("rem ")) {
       return null;
     }
     try {
-      int indx = cmd.indexOf(' ');
-      String key = indx != -1 ? cmd.substring(0, indx) : cmd;
-      CommandExecutor executor = COMMAND_LISTENERS.get(key);
-      if (executor != null) {
-        ret = executor.exec(getArgs(cmd));
-      } else if (cmd.startsWith("./")) {
-        ret = Scripting.run(cmd);
-      } else {
-        Printer.err.println(Resources.getString("CommandUtils.UnknownCommand"), key);
-        Printer.out.println(Resources.getString("CommandUtils.UnknownCommandInfo"));
+      if (input.startsWith("./")) {
+        return Scripting.run(input);
       }
+      String cmd = getCmd(input);
+      CommandExecutor executor = COMMAND_LISTENERS.get(cmd);
+      if (executor != null) {
+        return executor.exec(getArgs(input));
+      }
+      Printer.err.println(Resources.getString("CommandUtils.UnknownCommand"), cmd);
+      Printer.out.println(Resources.getString("CommandUtils.UnknownCommandInfo"));
     } catch (Exception e) {
       Printer.err.println(Resources.getString("CommandUtils.Error"), e.toString());
-      LOGGER.error("Command \"" + cmd + "\" threw Exception: " + e.toString(), e);
+      LOGGER.error("Command \"" + input + "\" threw Exception: " + e.toString(), e);
     }
     return ret;
   }
@@ -79,15 +78,15 @@ public class CommandUtils {
     COMMAND_LISTENERS.put(cmd, exec);
   }
 
-  public static String parseInlineCommands(String tmp) {
+  public static String parseInlineCommands(String str) {
     boolean wasMuted = Printer.out.mute(true);
-    for (Matcher m = INLINE_COMMAND_PATTERN.matcher(tmp); m.find(); m = INLINE_COMMAND_PATTERN.matcher(tmp)) {
+    for (Matcher m = INLINE_COMMAND_PATTERN.matcher(str); m.find(); m = INLINE_COMMAND_PATTERN.matcher(str)) {
       String group = m.group();
       Object cmdResult = CommandUtils.evaluateCommand(group.replaceAll("^\\$\\{|\\}$", ""));
-      tmp = tmp.substring(0, m.start()) + cmdResult + tmp.substring(m.end());
+      str = str.substring(0, m.start()) + cmdResult + str.substring(m.end());
     }
     Printer.out.mute(wasMuted);
-    return tmp;
+    return str;
   }
 
   static void printInputPromt() {
@@ -95,7 +94,12 @@ public class CommandUtils {
     Printer.out.forced().print("%s %s > ", JTerm.getUser(), formattedPath);
   }
 
-  static String getArgs(String cmd) {
+  static String getCmd(String cmd) {
+    int commandEnd = cmd.indexOf(' ');
+    return commandEnd != -1 ? cmd.substring(0, commandEnd) : cmd;
+  }
+
+   static String getArgs(String cmd) {
     int indx = cmd.indexOf(' ');
     return indx != -1 ? cmd.substring(indx + 1).trim() : "";
   }
@@ -110,12 +114,12 @@ public class CommandUtils {
   }
 
   private static void loadContextsFromBufferedReader(BufferedReader br, ClassLoader cl) throws IOException {
-    String str;
-    while ((str = br.readLine()) != null) {
-      str = str.trim();
-      if (!str.startsWith("#")) {
-        initializeClass(str, cl);
-        CONTEXTS.add(str);
+    String context;
+    while ((context = br.readLine()) != null) {
+      context = context.trim();
+      if (!context.startsWith("#")) {
+        initializeClass(context, cl);
+        CONTEXTS.add(context);
       }
     }
   }
@@ -124,7 +128,7 @@ public class CommandUtils {
     List<URL> urls = new ArrayList<>();
     Path pluginDir = UserProperties.getJtermDir().resolve("plugins");
     try (Stream<Path> stream = Files.list(pluginDir)) {
-      stream.filter(p -> p.toString().endsWith(".jar")).forEach(p -> urls.add(pathToUrl(p)));
+      stream.filter(p -> p.toString().endsWith(".jar")).forEach(p -> urls.add(pathToURL(p)));
       try (URLClassLoader cl = URLClassLoader.newInstance(urls.toArray(new URL[urls.size()]))) {
         try (BufferedReader br = Files.newBufferedReader(pluginDir.resolve("contexts.ctx"))) {
           loadContextsFromBufferedReader(br, cl);
@@ -135,7 +139,7 @@ public class CommandUtils {
     }
   }
 
-  private static URL pathToUrl(Path p) {
+  private static URL pathToURL(Path p) {
     try {
       return p.toUri().toURL();
     } catch (MalformedURLException e) {

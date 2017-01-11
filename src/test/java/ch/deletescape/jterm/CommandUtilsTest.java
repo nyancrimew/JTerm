@@ -18,6 +18,15 @@ public class CommandUtilsTest {
   public void getArgsWithEchoWithLeadingAndTailingSpaces() {
     assertThat(CommandUtils.getArgs("echo   Test "), is("Test"));
   }
+  @Test
+  public void getCmdWithEcho() {
+    assertThat(CommandUtils.getCmd("echo Test"), is("echo"));
+  }
+  
+  @Test
+  public void getCmdWithEchoWithLeadingAndTailingSpaces() {
+    assertThat(CommandUtils.getCmd("echo   Test "), is("echo"));
+  }
 
   @Test
   public void testContextLoading() throws IOException {

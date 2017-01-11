@@ -66,7 +66,7 @@ public final class UserProperties {
         Files.createDirectory(JTERM_DIR);
       } catch (IOException e) {
         Printer.err.println(e.toString());
-        LOGGER.error(e.toString(), e);
+        LOGGER.error("Can't create JTerm data directory: " + e.toString(), e);
       }
       setProperty("jterm.firststart", String.valueOf(Calendar.getInstance().getTimeInMillis()));
     }

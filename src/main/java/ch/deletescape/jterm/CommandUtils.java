@@ -113,8 +113,10 @@ public class CommandUtils {
     String str;
     while ((str = br.readLine()) != null) {
       str = str.trim();
-      initializeClass(str, cl);
-      CONTEXTS.add(str);
+      if (!str.startsWith("#")) {
+        initializeClass(str, cl);
+        CONTEXTS.add(str);
+      }
     }
   }
 

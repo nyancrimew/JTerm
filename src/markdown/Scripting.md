@@ -19,7 +19,7 @@ A script can be executed in two ways, either by using the `run` command with the
 
 A line in a script is treated as comment if it starts with either `#`, this makes documenting your code really easy.
 
->Currently it is only supported to comment out complete lines.
+> Currently it is only supported to comment out complete lines.
 
 ## Startup script
 

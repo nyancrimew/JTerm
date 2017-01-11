@@ -1,17 +1,17 @@
-#JTerm Documentation
+# JTerm Documentation
 
 ```
 user ~ > echo I am JTerm
 I am JTerm
 ```
 
-##Table of Contents
+## Table of Contents
 
 * [What is JTerm?](#what-is-jterm)
 * [Quick start](#quick-start)
 * [Scripting](Scripting.md)
 
-##What is JTerm?
+## What is JTerm?
 
 JTerm is a small terminal emulator containing all the basic commands a terminal needs and some more. A scripting language is also provided which will evolve alot in future releases. But the best thing about it is that it is fully open source and works on all platforms!
 

@@ -18,11 +18,12 @@ public class CommandUtilsTest {
   public void getArgsWithEchoWithLeadingAndTailingSpaces() {
     assertThat(CommandUtils.getArgs("echo   Test "), is("Test"));
   }
+
   @Test
   public void getCmdWithEcho() {
     assertThat(CommandUtils.getCmd("echo Test"), is("echo"));
   }
-  
+
   @Test
   public void getCmdWithEchoWithLeadingAndTailingSpaces() {
     assertThat(CommandUtils.getCmd("echo   Test "), is("echo"));
@@ -36,13 +37,18 @@ public class CommandUtilsTest {
             "ch.deletescape.jterm.commandcontexts.DateTime", "ch.deletescape.jterm.commandcontexts.Random",
             "ch.deletescape.jterm.commandcontexts.Directories", "ch.deletescape.jterm.commandcontexts.Env",
             "ch.deletescape.jterm.commandcontexts.SingleFiles", "ch.deletescape.jterm.commandcontexts.Network",
-            "ch.deletescape.jterm.commandcontexts.scripting.Scripting","ch.deletescape.jterm.commandcontexts.JTerm"));
+            "ch.deletescape.jterm.commandcontexts.scripting.Scripting", "ch.deletescape.jterm.commandcontexts.JTerm"));
   }
 
   @Test
   public void testEvaluateCommand() throws IOException {
     CommandUtils.initializeEnv();
     assertThat(CommandUtils.evaluateCommand("echo Test"), is("Test"));
+  }
+
+  @Test
+  public void evaluateCommandIsComment() throws IOException {
+    assertThat(CommandUtils.evaluateCommand("#echo Test"), is((Object) null));
   }
 
   @Test

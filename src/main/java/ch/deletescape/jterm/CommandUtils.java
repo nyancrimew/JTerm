@@ -52,8 +52,7 @@ public class CommandUtils {
   }
 
   public static Object evaluateCommand(String input) {
-    Object ret = null;
-    if (input.startsWith("#") || input.startsWith("rem ")) {
+    if (input.startsWith("#")) {
       return null;
     }
     try {
@@ -71,7 +70,7 @@ public class CommandUtils {
       Printer.err.println(Resources.getString("CommandUtils.Error"), e.toString());
       LOGGER.error("Command \"" + input + "\" threw Exception: " + e.toString(), e);
     }
-    return ret;
+    return null;
   }
 
   public static void addListener(String cmd, CommandExecutor exec) {
@@ -81,8 +80,7 @@ public class CommandUtils {
   public static String parseInlineCommands(String str) {
     boolean wasMuted = Printer.out.mute(true);
     for (Matcher m = INLINE_COMMAND_PATTERN.matcher(str); m.find(); m = INLINE_COMMAND_PATTERN.matcher(str)) {
-      String group = m.group();
-      Object cmdResult = CommandUtils.evaluateCommand(group.replaceAll("^\\$\\{|\\}$", ""));
+      Object cmdResult = CommandUtils.evaluateCommand(m.group().replaceAll("^\\$\\{|\\}$", ""));
       str = str.substring(0, m.start()) + cmdResult + str.substring(m.end());
     }
     Printer.out.mute(wasMuted);
@@ -99,7 +97,7 @@ public class CommandUtils {
     return commandEnd != -1 ? cmd.substring(0, commandEnd) : cmd;
   }
 
-   static String getArgs(String cmd) {
+  static String getArgs(String cmd) {
     int indx = cmd.indexOf(' ');
     return indx != -1 ? cmd.substring(indx + 1).trim() : "";
   }

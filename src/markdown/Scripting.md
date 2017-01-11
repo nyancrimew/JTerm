@@ -17,7 +17,7 @@ A script can be executed in two ways, either by using the `run` command with the
 
 ## Commenting a script
 
-A line in a script is treated as comment if it starts with either `#` or `rem `, this makes documenting your code really easy.
+A line in a script is treated as comment if it starts with either `#`, this makes documenting your code really easy.
 
 >Currently it is only supported to comment out complete lines.
 

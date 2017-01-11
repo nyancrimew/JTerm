@@ -3,8 +3,6 @@ package ch.deletescape.jterm.commandcontexts;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -45,15 +43,16 @@ public class Directories extends CommandContext {
   String ls(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
+    if(!Files.exists(path)){
+      return Printer.err.println(Resources.getString("PathNotFound"), path);
+    }
+    if(!Files.isDirectory(path)){
+      return Printer.out.println(path);      
+    }
     try (Stream<Path> stream = Files.list(path)) {
       StringBuilder out = new StringBuilder();
       stream.forEach(p -> out.append(p.getFileName().toString() + "\n"));
       return Printer.out.println(out);
-    } catch (NoSuchFileException e) {
-      LOGGER.error(e.toString(), e);
-      return Printer.err.println(Resources.getString("PathNotFound"), path);
-    } catch (NotDirectoryException e) {
-      return Printer.out.println(path);
     }
   }
 

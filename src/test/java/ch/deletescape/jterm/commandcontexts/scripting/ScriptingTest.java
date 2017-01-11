@@ -45,7 +45,7 @@ public class ScriptingTest {
   }
 
   public void invalidVariablenameIsInvalid() throws ScriptingException {
-    thrown.expect(Exception.class);
+    thrown.expect(ScriptingException.class);
     Scripting scripting = new Scripting();
     scripting.validateVariableName("1var123");
   }

@@ -27,13 +27,16 @@ import ch.deletescape.jterm.config.Resources;
 import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
 
-public class CommandUtils {
+public final class CommandUtils {
 
   public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<>();
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
   public static final Set<String> CONTEXTS = new HashSet<>();
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!\\$\\{))*?\\}");
   private static final Logger LOGGER = LogManager.getLogger();
+
+  private CommandUtils() {
+  }
 
   static void initializeEnv() throws IOException {
     try (InputStreamReader in = new InputStreamReader(CommandUtils.class.getResourceAsStream("/contexts.ctx"))) {

@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Resources {
+public final class Resources {
   private static final Logger LOGGER = LogManager.getLogger();
   private static final ResourceBundle.Control CONTROL = new ResourceBundle.Control() {
     @Override

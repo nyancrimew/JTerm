@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.io.Printer;
 
-public class UserProperties {
+public final class UserProperties {
   private static final Logger LOGGER = LogManager.getLogger();
   private static final Properties USER_PROPS = new Properties();
   private static final Path JTERM_DIR = Paths.get(JTerm.getHome(), ".jterm");

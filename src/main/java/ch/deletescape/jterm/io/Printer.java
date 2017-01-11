@@ -5,7 +5,10 @@ package ch.deletescape.jterm.io;
  * 
  * @author deletescape
  */
-public class Printer {
+public final class Printer {
+  private Printer() {
+  }
+
   /**
    * {@link MutablePrinter} printing to {@link System#out}
    */

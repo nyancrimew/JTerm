@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Util {
+public final class Util {
+
+  private Util() {
+  }
+
   /**
    * Replaces the tilde (~) with the home directory in a string
    * 

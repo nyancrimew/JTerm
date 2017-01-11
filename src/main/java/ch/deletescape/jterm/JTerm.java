@@ -16,7 +16,7 @@ import ch.deletescape.jterm.config.UserProperties;
 import ch.deletescape.jterm.io.Printer;
 import ch.deletescape.jterm.updater.UpdateChecker;
 
-public class JTerm {
+public final class JTerm {
   private static final String USER = System.getProperty("user.name");
   private static final Scanner SCANNER = new Scanner(System.in);
   private static final ScriptEngineManager SCRIPT_MANAGER = new ScriptEngineManager();

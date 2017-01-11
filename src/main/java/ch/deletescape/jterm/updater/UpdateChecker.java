@@ -42,7 +42,7 @@ public class UpdateChecker {
     return sb.toString();
   }
 
-   static boolean remoteVersionIsNewer(String version, String remoteVersion) {
+  static boolean remoteVersionIsNewer(String version, String remoteVersion) {
     String[] thisParts = version.substring(1).split("\\.");
     String[] thatParts = remoteVersion.substring(1).split("\\.");
     for (int i = 0; i < 3; i++) {
@@ -63,7 +63,7 @@ public class UpdateChecker {
     private String name;
     private boolean isNewer;
 
-    private Update(String version, String name, boolean isNewer) {
+    Update(String version, String name, boolean isNewer) {
       this.version = version;
       this.name = name;
       this.isNewer = isNewer;

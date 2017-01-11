@@ -42,7 +42,7 @@ public class UpdateChecker {
     return sb.toString();
   }
 
-  private static boolean remoteVersionIsNewer(String version, String remoteVersion) {
+   static boolean remoteVersionIsNewer(String version, String remoteVersion) {
     String[] thisParts = version.substring(1).split("\\.");
     String[] thatParts = remoteVersion.substring(1).split("\\.");
     for (int i = 0; i < 3; i++) {

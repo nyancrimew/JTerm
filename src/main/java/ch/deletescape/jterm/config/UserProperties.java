@@ -109,7 +109,7 @@ public final class UserProperties {
       } else {
         Locale.setDefault(Locale.forLanguageTag(userLocale));
       }
+      Resources.localeChanged();
     }
-    Resources.localeChanged();
   }
 }

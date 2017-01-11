@@ -22,11 +22,38 @@ public class MutablePrinterTest {
   }
 
   @Test
+  public void printNullTest() {
+    MockOutputstream out = new MockOutputstream();
+    MutablePrinter printer = new MutablePrinter(new PrintStream(out));
+    assertThat(printer.print(null), is((String) null));
+    assertThat(out.sb.toString(), is("null"));
+  }
+
+  @Test
+  public void toggleMuteTest() {
+    MockOutputstream out = new MockOutputstream();
+    MutablePrinter printer = new MutablePrinter(new PrintStream(out));
+    assertThat(printer.isMuted(), is(false));
+    assertThat(printer.toggleMute(), is(true));
+    assertThat(printer.isMuted(), is(true));
+    assertThat(printer.toggleMute(), is(false));
+    assertThat(printer.isMuted(), is(false));
+  }
+
+  @Test
   public void printlnTest() {
     MockOutputstream out = new MockOutputstream();
     MutablePrinter printer = new MutablePrinter(new PrintStream(out));
     assertThat(printer.println("Test"), is("Test"));
     assertThat(out.sb.toString(), is("Test" + LINESEPERATOR));
+  }
+
+  @Test
+  public void printlnNoParamTest() {
+    MockOutputstream out = new MockOutputstream();
+    MutablePrinter printer = new MutablePrinter(new PrintStream(out));
+    assertThat(printer.println(), is(""));
+    assertThat(out.sb.toString(), is(LINESEPERATOR));
   }
 
   @Test
@@ -44,6 +71,13 @@ public class MutablePrinterTest {
     MockOutputstream out = new MockOutputstream();
     MutablePrinter printer = new MutablePrinter(new PrintStream(out));
     assertThat(printer.mute(true), is(false));
+    assertThat(printer.forced().print("Test"), is("Test"));
+    assertThat(out.sb.toString(), is("Test"));
+  }
+
+  public void printForcedNotMutedTest() {
+    MockOutputstream out = new MockOutputstream();
+    MutablePrinter printer = new MutablePrinter(new PrintStream(out));
     assertThat(printer.forced().print("Test"), is("Test"));
     assertThat(out.sb.toString(), is("Test"));
   }

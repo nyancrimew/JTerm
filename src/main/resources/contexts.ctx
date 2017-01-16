@@ -7,4 +7,3 @@ ch.deletescape.jterm.commandcontexts.SingleFiles
 ch.deletescape.jterm.commandcontexts.Network
 ch.deletescape.jterm.commandcontexts.scripting.Scripting
 ch.deletescape.jterm.commandcontexts.JTerm
-#ch.deletescape.jterm.commandcontexts.Reflect

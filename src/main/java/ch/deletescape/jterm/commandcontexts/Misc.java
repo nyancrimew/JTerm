@@ -25,7 +25,7 @@ public class Misc extends CommandContext {
     String command = CommandUtils.parseInlineCommands(arg);
     StringBuilder output = new StringBuilder();
     if (arg.isEmpty()) {
-      output.append(Resources.getString("Misc.HelpTitle"));
+      output.append(Resources.getString("Misc.HelpTitle") + "\n");
       CommandUtils.BASE_COMMANDS.stream().sorted().forEach(s -> appendCommand(output, s));
     } else {
       String help = Resources.getHelp(command, false);

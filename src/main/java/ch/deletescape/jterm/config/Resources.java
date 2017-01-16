@@ -35,7 +35,7 @@ public final class Resources {
       try {
         return help.getString(command);
       } catch (MissingResourceException e) {
-        LOGGER.error(e.toString()+", We will try to find the short help string in the next step", e);
+        LOGGER.error(e.toString() + ", We will try to find the short help string in the next step", e);
       }
     }
     try {

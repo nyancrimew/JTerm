@@ -37,7 +37,7 @@ public class Scripting extends CommandContext {
       CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseSplit[0]));
       return true;
     }
-    if (elseSplit.length>1) {
+    if (elseSplit.length > 1) {
       CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseSplit[1]));
     }
     return false;
@@ -77,8 +77,8 @@ public class Scripting extends CommandContext {
   }
 
   void validateVariableName(String name) throws ScriptingException {
-    if(!name.matches("^[a-zA-Z_$][\\w$]*")){
-      throw new ScriptingException(String.format(Resources.getString("Scripting.InvalidVariableName"),name));
+    if (!name.matches("^[a-zA-Z_$][\\w$]*")) {
+      throw new ScriptingException(String.format(Resources.getString("Scripting.InvalidVariableName"), name));
     }
   }
 

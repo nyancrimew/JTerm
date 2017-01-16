@@ -21,11 +21,12 @@ public class EnvTest {
     env.setProp("test=works");
     assertThat(env.getProp("test"), is("works"));
   }
+
   @Test
   public void muteTest() {
     Env env = new Env();
-    assertThat(Printer.out.isMuted(),is(false));
-    assertThat(env.mute(),is(true));
-    assertThat(Printer.out.isMuted(),is(true));
+    assertThat(Printer.out.isMuted(), is(false));
+    assertThat(env.mute(), is(true));
+    assertThat(Printer.out.isMuted(), is(true));
   }
 }

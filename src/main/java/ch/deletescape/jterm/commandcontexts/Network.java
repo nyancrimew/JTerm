@@ -27,7 +27,8 @@ public class Network extends CommandContext {
       if (noConn && !command.contains("-a")) {
         continue;
       }
-      Printer.out.println(Resources.getString("Network.InterfaceNameFormat"), currInterface.getDisplayName(), currInterface.getName());
+      Printer.out.println(Resources.getString("Network.InterfaceNameFormat"), currInterface.getDisplayName(),
+          currInterface.getName());
       Printer.out.println(Resources.getString("Network.PhysicalAddress"), getMacAddress(currInterface));
       Printer.out.println(Resources.getString("Network.Index"), currInterface.getIndex());
       if (noConn) {
@@ -43,6 +44,7 @@ public class Network extends CommandContext {
     }
     return Resources.getString("NonSupported");
   }
+
   private static String getMacAddress(NetworkInterface ni) throws SocketException {
     if (ni == null) {
       return null;

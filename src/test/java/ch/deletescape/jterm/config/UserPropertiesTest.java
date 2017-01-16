@@ -23,6 +23,7 @@ public class UserPropertiesTest {
     UserProperties.setProperty(key, "1");
     assertThat(UserProperties.getBoolean(key), is(true));
   }
+
   @Test
   public void getBooleanPropertyIsFalse() {
     String key = "test" + Math.random();

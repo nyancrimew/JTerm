@@ -26,7 +26,8 @@ public final class JTerm {
   private static Path currPath;
   private static boolean isRunning = true;
 
-  private JTerm() {}
+  private JTerm() {
+  }
 
   public static void main(String[] args) throws IOException {
     if (home == null) {

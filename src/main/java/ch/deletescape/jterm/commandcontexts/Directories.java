@@ -43,11 +43,11 @@ public class Directories extends CommandContext {
   String ls(String cmd) throws IOException {
     String command = CommandUtils.parseInlineCommands(cmd);
     Path path = JTerm.getCurrPath().resolve(Util.makePathString(command));
-    if(!Files.exists(path)){
+    if (!Files.exists(path)) {
       return Printer.err.println(Resources.getString("PathNotFound"), path);
     }
-    if(!Files.isDirectory(path)){
-      return Printer.out.println(path);      
+    if (!Files.isDirectory(path)) {
+      return Printer.out.println(path);
     }
     try (Stream<Path> stream = Files.list(path)) {
       StringBuilder out = new StringBuilder();

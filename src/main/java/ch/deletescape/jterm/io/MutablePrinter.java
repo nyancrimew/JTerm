@@ -143,18 +143,24 @@ public class MutablePrinter {
     muted = !muted;
     return muted;
   }
-/**
- * Access the current mute state
- * @return The current mute state
- */
+
+  /**
+   * Access the current mute state
+   * 
+   * @return The current mute state
+   */
   public boolean isMuted() {
     return muted;
   }
-/**
- * Enforce output on the next call to any method which writes to the stream, even if it is muted<br>
- * Should be used as chaining element: {@code mutablePrinter.forced().print("This output is enforced")}
- * @return This MutablePrinter to enable chaining
- */
+
+  /**
+   * Enforce output on the next call to any method which writes to the stream, even if it is
+   * muted<br>
+   * Should be used as chaining element:
+   * {@code mutablePrinter.forced().print("This output is enforced")}
+   * 
+   * @return This MutablePrinter to enable chaining
+   */
   public MutablePrinter forced() {
     forced = true;
     return this;

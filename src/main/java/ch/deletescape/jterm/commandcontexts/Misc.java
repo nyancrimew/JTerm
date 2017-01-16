@@ -40,7 +40,7 @@ public class Misc extends CommandContext {
 
   private void appendCommand(StringBuilder sb, String command) {
     sb.append(command);
-    for(int i=15-command.length();i>0;i--){
+    for (int i = 15 - command.length(); i > 0; i--) {
       sb.append(' ');
     }
     sb.append(Resources.getHelp(command, true));

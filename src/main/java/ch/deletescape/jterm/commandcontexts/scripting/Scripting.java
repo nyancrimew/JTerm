@@ -31,27 +31,23 @@ public class Scripting extends CommandContext {
   }
 
   private boolean ifThenElse(String args) throws ScriptException {
-    boolean hasElse = args.contains(" else ");
-    String condition = args.split(" then ")[0];
-    String part2 = args.split(" then ")[1];
-    String then = hasElse ? part2.split(" else ")[0] : part2;
-    if (eval(condition)) {
-      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(then));
+    String[] thenSplit = args.split(" then ");
+    String[] elseSplit = thenSplit[1].split(" else ");
+    if (eval(thenSplit[0])) {
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseSplit[0]));
       return true;
     }
-    if (hasElse) {
-      String elseCmd = part2.split(" else ")[1];
-      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseCmd));
+    if (elseSplit.length>1) {
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(elseSplit[1]));
     }
     return false;
   }
 
   private int whileDo(String args) throws ScriptException {
     int count = 0;
-    String condition = args.split(" do ")[0];
-    String command = args.split(" do ")[1];
-    while (eval(condition)) {
-      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(command));
+    String[] doSplit = args.split(" do ");
+    while (eval(doSplit[0])) {
+      CommandUtils.evaluateCommand(CommandUtils.parseInlineCommands(doSplit[1]));
       count++;
     }
     return count;

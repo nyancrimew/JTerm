@@ -108,10 +108,8 @@ public final class CommandUtils {
     String context;
     while ((context = br.readLine()) != null) {
       context = context.trim();
-      if (!context.startsWith("#")) {
-        initializeClass(context, cl);
-        CONTEXTS.add(context);
-      }
+      initializeClass(context, cl);
+      CONTEXTS.add(context);
     }
   }
 }

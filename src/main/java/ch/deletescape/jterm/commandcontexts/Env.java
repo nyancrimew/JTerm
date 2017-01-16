@@ -1,7 +1,5 @@
 package ch.deletescape.jterm.commandcontexts;
 
-import java.util.Properties;
-
 import ch.deletescape.jterm.CommandUtils;
 import ch.deletescape.jterm.JTerm;
 import ch.deletescape.jterm.config.Resources;
@@ -92,8 +90,7 @@ public class Env extends CommandContext {
       return Printer.out.println(UserProperties.getProperty(key));
     }
     StringBuilder sb = new StringBuilder();
-    Properties props = UserProperties.getProperties();
-    props.forEach((o1, o2) -> sb.append(o1 + " = " + o2 + "\n"));
+    UserProperties.getProperties().forEach((o1, o2) -> sb.append(o1 + " = " + o2 + "\n"));
     return Printer.out.println(sb.toString());
   }
 

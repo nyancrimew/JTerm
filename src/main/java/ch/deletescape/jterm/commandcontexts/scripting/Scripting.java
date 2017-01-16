@@ -30,7 +30,7 @@ public class Scripting extends CommandContext {
     return (boolean) JTerm.getJsEngine().eval(expr);
   }
 
-  private boolean ifThenElse(String args) throws ScriptException {
+  boolean ifThenElse(String args) throws ScriptException {
     String[] thenSplit = args.split(" then ");
     String[] elseSplit = thenSplit[1].split(" else ");
     if (eval(thenSplit[0])) {

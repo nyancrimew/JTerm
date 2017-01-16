@@ -33,6 +33,15 @@ public class ScriptingTest {
   }
 
   @Test
+  public void ifTest() throws Exception {
+    Scripting scripting = new Scripting();
+    assertThat(scripting.ifThenElse("true then echo"), is(true));
+    assertThat(scripting.ifThenElse("false then echo"), is(false));
+    assertThat(scripting.ifThenElse("1==1 then echo"), is(true));
+    assertThat(scripting.ifThenElse("false then echo else echo"), is(false));
+  }
+
+  @Test
   public void nonIntegerOrBooleanVarIsString() throws Exception {
     Scripting scripting = new Scripting();
     assertThat(scripting.var("i=abcd"), is("abcd"));

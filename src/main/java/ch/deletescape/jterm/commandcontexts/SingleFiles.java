@@ -64,7 +64,7 @@ public class SingleFiles extends CommandContext {
     return sb.toString();
   }
 
-  private String write(String args) throws IOException {
+  String write(String args) throws IOException {
     String arguments = CommandUtils.parseInlineCommands(args);
     String content = arguments.split(" > ")[0];
     String destination = arguments.split(" > ")[1];

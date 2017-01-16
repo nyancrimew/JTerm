@@ -3,21 +3,15 @@ package ch.deletescape.jterm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +37,6 @@ public final class CommandUtils {
       BufferedReader br = new BufferedReader(in);
       loadContextsFromBufferedReader(br, CommandUtils.class.getClassLoader());
     }
-    loadPlugins();
     BASE_COMMANDS.addAll(COMMAND_LISTENERS.keySet());
     Printer.out.mute(true);
     Path jtermrc = Paths.get(JTerm.getHome(), ".jtermrc");
@@ -123,29 +116,5 @@ public final class CommandUtils {
         CONTEXTS.add(context);
       }
     }
-  }
-
-  private static void loadPlugins() throws IOException {
-    List<URL> urls = new ArrayList<>();
-    Path pluginDir = UserProperties.getJtermDir().resolve("plugins");
-    try (Stream<Path> stream = Files.list(pluginDir)) {
-      stream.filter(p -> p.toString().endsWith(".jar")).forEach(p -> urls.add(pathToURL(p)));
-      try (URLClassLoader cl = URLClassLoader.newInstance(urls.toArray(new URL[urls.size()]))) {
-        try (BufferedReader br = Files.newBufferedReader(pluginDir.resolve("contexts.ctx"))) {
-          loadContextsFromBufferedReader(br, cl);
-        }
-      }
-    } catch (Exception e) {
-      LOGGER.error(e.toString(), e);
-    }
-  }
-
-  private static URL pathToURL(Path p) {
-    try {
-      return p.toUri().toURL();
-    } catch (MalformedURLException e) {
-      LOGGER.error(e.toString(), e);
-    }
-    return null;
   }
 }

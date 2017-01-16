@@ -92,7 +92,8 @@ public class Scripting extends CommandContext {
     Path bak = JTerm.getCurrPath();
     JTerm.setCurrPath(path.getParent());
     try (BufferedReader in = Files.newBufferedReader(path)) {
-      for (String s = in.readLine(); s != null; s = in.readLine()) {
+      String s;
+      while ((s = in.readLine()) != null) {
         while (s.endsWith("\\;")) {
           s = s.substring(0, s.length() - 2) + " " + in.readLine().trim();
         }

@@ -52,9 +52,6 @@ public final class CommandUtils {
       return null;
     }
     try {
-      if (input.startsWith("./")) {
-        return Scripting.run(input);
-      }
       String cmd = getCmd(input);
       CommandExecutor executor = COMMAND_LISTENERS.get(cmd);
       if (executor != null) {

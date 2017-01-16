@@ -13,7 +13,7 @@ An example on how a script could look like can be found [here](Examples/example.
 
 ## Run a script
 
-A script can be executed in two ways, either by using the `run` command with the path to the script or by adding `./` to the beginning of the path and executing this as a command.
+A script can be executed by using the `run` command with the path to the script.
 
 ## Commenting a script
 

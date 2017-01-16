@@ -42,6 +42,17 @@ public class SingleFilesTest {
     }
     assertThat(sf.cat(file.getAbsolutePath()), is("test"));
   }
+
+  @Test
+  public void printFileTest() throws Exception {
+    SingleFiles sf = new SingleFiles();
+    File file = temp.newFile();
+    try (FileWriter fileWriter = new FileWriter(file)) {
+      fileWriter.write("test");
+    }
+    assertThat(sf.printFile(file.toPath()), is("test"));
+  }
+  
   @Test
   public void catOnDirectory() throws Exception {
     SingleFiles sf = new SingleFiles();

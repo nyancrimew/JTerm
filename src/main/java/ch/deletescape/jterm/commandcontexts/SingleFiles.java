@@ -53,7 +53,7 @@ public class SingleFiles extends CommandContext {
     return sb.toString();
   }
 
-  private String printFile(Path path) {
+  String printFile(Path path) {
     StringBuilder sb = new StringBuilder();
     try (InputStream in = Files.newInputStream(path)) {
       sb.append(Util.copyStream(in, Printer.out.getPrintStream()));

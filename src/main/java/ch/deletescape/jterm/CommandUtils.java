@@ -25,7 +25,7 @@ public final class CommandUtils {
 
   public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<>();
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
-  public static final Set<String> CONTEXTS = new HashSet<>();
+  static final Set<String> CONTEXTS = new HashSet<>();
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{(.(?:.(?!\\$\\{))*?)\\}");
   private static final Logger LOGGER = LogManager.getLogger();
 
@@ -38,12 +38,7 @@ public final class CommandUtils {
       loadContextsFromBufferedReader(br, CommandUtils.class.getClassLoader());
     }
     BASE_COMMANDS.addAll(COMMAND_LISTENERS.keySet());
-    Printer.out.mute(true);
-    Path jtermrc = Paths.get(JTerm.getHome(), ".jtermrc");
-    if (Files.exists(jtermrc)) {
-      Scripting.run(jtermrc.toString());
-    }
-    Printer.out.mute(false);
+    runJTermRC();
     UserProperties.init();
   }
 
@@ -111,5 +106,14 @@ public final class CommandUtils {
       initializeClass(context, cl);
       CONTEXTS.add(context);
     }
+  }
+
+  private static void runJTermRC() throws IOException {
+    Printer.out.mute(true);
+    Path jtermrc = Paths.get(JTerm.getHome(), ".jtermrc");
+    if (Files.exists(jtermrc)) {
+      Scripting.run(jtermrc.toString());
+    }
+    Printer.out.mute(false);
   }
 }

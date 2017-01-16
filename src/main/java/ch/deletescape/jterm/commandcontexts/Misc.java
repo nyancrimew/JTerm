@@ -17,8 +17,7 @@ public class Misc extends CommandContext {
   double calc(String cmd) {
     String operation = CommandUtils.parseInlineCommands(cmd);
     double result = new ExpressionBuilder(operation).build().evaluate();
-    String out = ((int) result == result) ? String.valueOf((int) result) : String.valueOf(result);
-    Printer.out.println(out);
+    Printer.out.println(result);
     return result;
   }
 

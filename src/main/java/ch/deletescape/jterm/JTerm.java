@@ -20,7 +20,7 @@ public final class JTerm {
   private static final String USER = System.getProperty("user.name");
   private static final Scanner SCANNER = new Scanner(System.in);
   private static final ScriptEngineManager SCRIPT_MANAGER = new ScriptEngineManager();
-  private static final ScriptEngine JSENGINE = SCRIPT_MANAGER.getEngineByName("js");
+  private static ScriptEngine jsEngine;
   private static final Logger LOGGER = LogManager.getLogger();
   private static String home = System.getProperty("user.home");
   private static Path currPath;
@@ -67,7 +67,10 @@ public final class JTerm {
   }
 
   public static ScriptEngine getJsEngine() {
-    return JSENGINE;
+    if (jsEngine == null) {
+      jsEngine = SCRIPT_MANAGER.getEngineByName("js");
+    }
+    return jsEngine;
   }
 
   public static void exit() {

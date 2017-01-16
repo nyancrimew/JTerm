@@ -26,7 +26,7 @@ public final class CommandUtils {
   public static final Map<String, CommandExecutor> COMMAND_LISTENERS = new HashMap<>();
   public static final Set<String> BASE_COMMANDS = new HashSet<>();
   public static final Set<String> CONTEXTS = new HashSet<>();
-  private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{.(?:.(?!\\$\\{))*?\\}");
+  private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{(.(?:.(?!\\$\\{))*?)\\}");
   private static final Logger LOGGER = LogManager.getLogger();
 
   private CommandUtils() {
@@ -76,7 +76,7 @@ public final class CommandUtils {
   public static String parseInlineCommands(String str) {
     boolean wasMuted = Printer.out.mute(true);
     for (Matcher m = INLINE_COMMAND_PATTERN.matcher(str); m.find(); m = INLINE_COMMAND_PATTERN.matcher(str)) {
-      Object cmdResult = CommandUtils.evaluateCommand(m.group().replaceAll("^\\$\\{|\\}$", ""));
+      Object cmdResult = CommandUtils.evaluateCommand(m.group(1));
       str = str.substring(0, m.start()) + cmdResult + str.substring(m.end());
     }
     Printer.out.mute(wasMuted);

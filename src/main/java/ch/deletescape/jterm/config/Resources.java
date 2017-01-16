@@ -18,8 +18,7 @@ public final class Resources {
   private static ResourceBundle strings = ResourceBundle.getBundle("strings", CONTROL);
   private static ResourceBundle help = ResourceBundle.getBundle("help", CONTROL);
 
-  private Resources() {
-  }
+  private Resources() {}
 
   public static String getString(String key) {
     try {

@@ -6,8 +6,7 @@ package ch.deletescape.jterm.io;
  * @author deletescape
  */
 public final class Printer {
-  private Printer() {
-  }
+  private Printer() {}
 
   /**
    * {@link MutablePrinter} printing to {@link System#out}

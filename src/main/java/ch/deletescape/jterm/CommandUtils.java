@@ -29,8 +29,7 @@ public final class CommandUtils {
   private static final Pattern INLINE_COMMAND_PATTERN = Pattern.compile("\\$\\{(.(?:.(?!\\$\\{))*?)\\}");
   private static final Logger LOGGER = LogManager.getLogger();
 
-  private CommandUtils() {
-  }
+  private CommandUtils() {}
 
   static void initializeEnv() throws IOException {
     try (InputStreamReader in = new InputStreamReader(CommandUtils.class.getResourceAsStream("/contexts.ctx"))) {

@@ -21,8 +21,7 @@ public final class UserProperties {
   private static final Path PROPERTIES_PATH = JTERM_DIR.resolve("user.properties");
   private static boolean firstStart;
 
-  private UserProperties() {
-  }
+  private UserProperties() {}
 
   public static void init() {
     firstStart();

@@ -6,8 +6,7 @@ import java.io.OutputStream;
 
 public final class Util {
 
-  private Util() {
-  }
+  private Util() {}
 
   /**
    * Replaces the tilde (~) with the home directory in a string

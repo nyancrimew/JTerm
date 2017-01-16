@@ -68,8 +68,7 @@ public class Scripting extends CommandContext {
       if (!value.matches("[0-9]*|true|false")) {
         value = "\"" + value + "\"";
       }
-      JTerm.getJsEngine().eval("var " + name + " = " + value);
-      return JTerm.getJsEngine().eval(name);
+      return JTerm.getJsEngine().eval(name + " = " + value);
     }
     validateVariableName(arguments);
     Object value = JTerm.getJsEngine().eval(arguments);

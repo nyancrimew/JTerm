@@ -41,28 +41,22 @@ public class Env extends CommandContext {
     String name = System.getProperty("os.name");
     String arch = System.getProperty("os.arch");
     String version = System.getProperty("os.version");
-    StringBuilder sb = new StringBuilder();
     switch (argument) {
       case "":
-        sb.append(String.format(Resources.getString("Env.DefaultFormat"), name, arch, version));
-        break;
+        return Printer.out.println(Resources.getString("Env.DefaultFormat"), name, arch, version);
       case "-n":
       case "--name":
-        sb.append(name);
-        break;
+        return Printer.out.println(name);
       case "-v":
       case "--version":
-        sb.append(version);
-        break;
+        return Printer.out.println(version);
       case "-a":
       case "--arch":
-        sb.append(arch);
-        break;
+        return Printer.out.println(arch);
       default:
         Printer.err.println(Resources.getString("Env.UnknownOption"), argument);
-        break;
+        return "";
     }
-    return Printer.out.println(sb);
   }
 
   String alias(String cmd) {

@@ -101,7 +101,7 @@ public final class CommandUtils {
   private static void initializeClass(String clazz, ClassLoader cl) {
     try {
       cl.loadClass(clazz).newInstance();
-    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+    } catch (Exception e) {
       Printer.err.println(Resources.getString("CommandUtils.ErrorLoadingContext"), clazz, e);
       LOGGER.error("Failed to load context " + clazz, e);
     }
